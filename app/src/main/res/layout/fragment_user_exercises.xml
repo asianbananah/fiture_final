@@ -1,0 +1,266 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.lim.fiture.fiture.fragments.UserProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="180dp" />
+
+        <RelativeLayout
+            android:id="@+id/exercisesRelative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible">
+
+            <Button
+                android:id="@+id/allExercisesBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="30dp"
+                />
+
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_below="@+id/allExercisesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exercises picked for you"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:alpha="0.5"
+                    android:background="@android:color/black" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/absLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lin1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Abs:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/absExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/absLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/backLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/absExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Back:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/backExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/backLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/bicepsLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/backExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Biceps:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/bicepsExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bicepsLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/chestLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bicepsExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Chest:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/chestExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chestLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/forearmsLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chestExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Forearms:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/forearmsExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/forearmsLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/glutesLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/forearmsExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Glutes:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/glutesExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/glutesLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/shouldersLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/glutesExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Shoulders:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/shouldersExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shouldersLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/tricepssLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shouldersExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Triceps:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/tricepsExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tricepssLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/upperLegsLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tricepsExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Upper Legs:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/upperLegsExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/upperLegsLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/lowerLegsLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/upperLegsExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Lower Legs:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lowerLegsExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lowerLegsLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/heartCardioLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lowerLegsExercises"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Heart/Cardio:"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/heartCardioExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/heartCardioLbl"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

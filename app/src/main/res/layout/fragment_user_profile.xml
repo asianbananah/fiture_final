@@ -1,0 +1,561 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.lim.fiture.fiture.fragments.UserProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/coverFrame"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+            <ImageView
+                android:id="@+id/profileCoverPic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/coverFrame"
+            android:layout_marginTop="120dp"
+            android:padding="5dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    app:cardCornerRadius="3dp"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/userNameTxt"
+                            android:layout_marginTop="45dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Hannah Lim"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            />
+
+                        <TextView
+                            android:id="@+id/emailTxt"
+                            android:layout_below="@+id/userNameTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            tools:text="hnhmlim@gmail.com"
+                            android:background="#ecf0f1"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:id="@+id/averageTxt"
+                            android:layout_below="@+id/emailTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:text="Making fitness your future"/>
+
+                        <LinearLayout
+                            android:id="@+id/lin1"
+                            android:layout_below="@+id/averageTxt"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/black"
+                                android:text="USER INFORMATION"/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:alpha="0.5"
+                                android:background="@android:color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lin2"
+                            android:layout_below="@+id/lin1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:weightSum="2"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="10dp">
+
+                                <android.support.v7.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="1"
+                                    app:cardCornerRadius="2dp"
+                                    app:cardBackgroundColor="#ecf0f1"
+                                    android:layout_marginRight="5dp"
+                                    >
+                                    <TextView
+                                        android:id="@+id/genderTxt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        tools:text="Female"
+                                        android:textColor="@android:color/black"
+                                        />
+                                </android.support.v7.widget.CardView>
+
+                                <android.support.v7.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="1"
+                                    app:cardCornerRadius="2dp"
+                                    android:layout_marginLeft="5dp"
+                                    app:cardBackgroundColor="#ecf0f1">
+                                    <TextView
+                                        android:id="@+id/birthDateTxt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        tools:text="Dec 4, 1997"
+                                        android:gravity="center"
+                                        android:textColor="@android:color/black"/>
+                                </android.support.v7.widget.CardView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="10dp">
+
+                                <android.support.v7.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="1"
+                                    app:cardCornerRadius="2dp"
+                                    android:layout_marginRight="5dp"
+                                    app:cardBackgroundColor="#ecf0f1"
+                                    >
+                                    <TextView
+                                        android:id="@+id/heightTxt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        tools:text="170cm"
+                                        android:textColor="@android:color/black"
+                                        />
+                                </android.support.v7.widget.CardView>
+
+                                <android.support.v7.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="1"
+                                    app:cardCornerRadius="2dp"
+                                    android:layout_marginLeft="5dp"
+                                    app:cardBackgroundColor="#ecf0f1">
+                                    <TextView
+                                        android:id="@+id/weightTxt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        tools:text="65.0kg"
+                                        android:gravity="center"
+                                        android:textColor="@android:color/black"/>
+                                </android.support.v7.widget.CardView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lin3"
+                            android:layout_below="@+id/lin2"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/black"
+                                android:text="FITNESS LEVEL"/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:alpha="0.5"
+                                android:background="@android:color/black" />
+
+                        </LinearLayout>
+                        
+                        <LinearLayout
+                            android:id="@+id/lin4"
+                            android:layout_below="@+id/lin3"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+                            
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="40dp"
+                                >
+
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#bdc3c7"
+                                    android:layout_centerHorizontal="true"/>
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/beginnerImg"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#2980b9"
+                                    android:layout_centerHorizontal="true"
+                                    android:visibility="invisible"/>
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/ic_beginner"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignTop="@+id/beginnerImg"
+                                    android:layout_alignBottom="@+id/beginnerImg"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/beginnerImg"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="2dp"
+                                    android:text="1"/>
+                                
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                >
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#bdc3c7"
+                                    android:layout_centerHorizontal="true"/>
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/intermediateImg"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#2980b9"
+                                    android:layout_centerHorizontal="true"
+                                    android:visibility="invisible"/>
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/ic_intermediate"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignTop="@+id/intermediateImg"
+                                    android:layout_alignBottom="@+id/intermediateImg"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/intermediateImg"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="2dp"
+                                    android:text="2"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginRight="40dp"
+                                >
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#bdc3c7"
+                                    android:layout_centerHorizontal="true"/>
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/expertImg"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#2980b9"
+                                    android:layout_centerHorizontal="true"
+                                    android:visibility="invisible"/>
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/ic_expert"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignTop="@+id/expertImg"
+                                    android:layout_alignBottom="@+id/expertImg"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/expertImg"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="2dp"
+                                    android:text="3"/>
+
+                            </RelativeLayout>
+                            
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/fitnessLevelTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/lin4"
+                            tools:text="Beginner"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_centerHorizontal="true"/>
+
+                        <LinearLayout
+                            android:id="@+id/lin5"
+                            android:layout_below="@+id/fitnessLevelTxt"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/black"
+                                android:text="FITNESS GOAL"/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:alpha="0.5"
+                                android:background="@android:color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lin6"
+                            android:layout_below="@+id/lin5"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="40dp"
+                                >
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#bdc3c7"
+                                    android:layout_centerHorizontal="true"/>
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/loseImg"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#2980b9"
+                                    android:layout_centerHorizontal="true"
+                                    android:visibility="invisible"/>
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/ic_lose"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignTop="@+id/loseImg"
+                                    android:layout_alignBottom="@+id/loseImg"
+                                    android:padding="7dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/loseImg"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="2dp"
+                                    android:text="1"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                >
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#bdc3c7"
+                                    android:layout_centerHorizontal="true"/>
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/maintainImg"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#2980b9"
+                                    android:layout_centerHorizontal="true"
+                                    android:visibility="invisible"/>
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/ic_maintain"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignTop="@+id/maintainImg"
+                                    android:layout_alignBottom="@+id/maintainImg"
+                                    android:padding="7dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/maintainImg"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="2dp"
+                                    android:text="2"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginRight="40dp"
+                                >
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#bdc3c7"
+                                    android:layout_centerHorizontal="true"/>
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/gainImg"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="#2980b9"
+                                    android:layout_centerHorizontal="true"
+                                    android:visibility="invisible"
+                                    />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/ic_gain"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignTop="@+id/gainImg"
+                                    android:layout_alignBottom="@+id/gainImg"
+                                    android:padding="7dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/gainImg"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="2dp"
+                                    android:text="3"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/fitnessGoalTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/lin6"
+                            tools:text="Lose"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_centerHorizontal="true"/>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+        </FrameLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignTop="@id/frame"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="-30dp"
+            android:src="#000000"/>
+
+    </RelativeLayout>
+
+</ScrollView>

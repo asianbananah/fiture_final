@@ -1,0 +1,111 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Fiture</string>
+    <string name="facebook_app_id">1720643791304256</string>
+    <string name="fb_login_protocol_scheme">fb1720643791304256</string>
+
+    //delete this soon
+    <string name="move_before">Move Day Before</string>
+    <string name="move_next">Move Day Next</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="connect_to_shealth">Connect to Samsung Health</string>
+
+    <string name="notice">Notice</string>
+    <string name="msg_perm_acquired">All permissions should be acquired</string>
+    <string name="msg_conn_not_available">Connection with Samsung Health is not available</string>
+    <string name="msg_req_install">Please install Samsung Health</string>
+    <string name="msg_req_upgrade">Please upgrade Samsung Health</string>
+    <string name="msg_req_enable">Please enable Samsung Health</string>
+    <string name="msg_req_agree">Please agree with Samsung Health policy</string>
+    <string name="msg_req_available">Please make Samsung Health available</string>
+
+    <string name="gender_prompt">Select your gender</string>
+    <string-array name="gender_choices">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string-array name="muscle_groups">
+        <item>Abs</item>
+        <item>Back</item>
+        <item>Biceps</item>
+        <item>Chest</item>
+        <item>Forearms</item>
+        <item>Glutes</item>
+        <item>Shoulders</item>
+        <item>Triceps</item>
+        <item>Upper Legs</item>
+        <item>Lower Legs</item>
+        <item>Heart/Cardio</item>
+    </string-array>
+
+    <string-array name="type">
+        <item>Gain</item>
+        <item>Lose</item>
+        <item>Maintain</item>
+    </string-array>
+
+    <string-array name="equipment">
+        <item>Bands</item>
+        <item>Barbell</item>
+        <item>Bench</item>
+        <item>Body Only</item>
+        <item>Dumbell</item>
+        <item>Exercise Ball</item>
+        <item>EZ - Bar</item>
+        <item>Foam Roll</item>
+        <item>Kettlebell</item>
+        <item>Machine - Cardio</item>
+        <item>Machine - Strength</item>
+        <item>Other</item>
+        <item>Pull Bar</item>
+        <item>Weight Plate</item>
+    </string-array>
+
+    <string-array name="Difficulty">
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Expert</item>
+    </string-array>
+
+    <string-array name="num_of_weeks">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="days_of_week">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <!--<string name="app_name">Bottom Navigation</string>-->
+    <string name="title_exercises">Exercises</string>
+    <string name="title_daily">Daily Challenges</string>
+    <string name="title_user">Profile</string>
+
+    <string name="exercises">Exercises</string>
+    <string name="delete">DELETE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

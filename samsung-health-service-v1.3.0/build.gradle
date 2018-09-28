@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('samsung-health-service-v1.3.0.jar'))

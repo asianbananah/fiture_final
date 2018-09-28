@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1056329486041",
+    "firebase_url": "https://fiturefinal.firebaseio.com",
+    "project_id": "fiturefinal",
+    "storage_bucket": "fiturefinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056329486041:android:953954e336708e7f",
+        "android_client_info": {
+          "package_name": "com.lim.fiture.fiture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056329486041-k0an7me2jrulsclvaih5jn2svv0nnlrh.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1056329486041-k0an7me2jrulsclvaih5jn2svv0nnlrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzFLtnsspbFc5_hCuC2tdM4J6tUq6gvTA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

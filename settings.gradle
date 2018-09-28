@@ -1,0 +1,1 @@
+include ':app', ':samsung-health-data-v1.3.0', ':sdk-v1.0.0', ':samsung-health-service-v1.3.0'

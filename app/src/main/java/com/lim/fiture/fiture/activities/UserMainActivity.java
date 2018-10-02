@@ -64,12 +64,12 @@ public class UserMainActivity extends AppCompatActivity {
         databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     mUser = dataSnapshot.getValue(User.class);
                     UserProfileFragment profileFragment = UserProfileFragment.newInstance(mUser);
                     loadFragment(profileFragment);
                     Log.d("userCheck1", mUser.toString());
-                }else{
+                } else {
                     Log.d(TAG, "no data for user");
                 }
             }
@@ -82,7 +82,7 @@ public class UserMainActivity extends AppCompatActivity {
         findViews();
     }
 
-    private void findViews(){
+    private void findViews() {
         toolBar = getSupportActionBar();
         toolBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2980b9")));
         toolBar.setTitle("Profile");
@@ -101,14 +101,14 @@ public class UserMainActivity extends AppCompatActivity {
                     UserProfileFragment profileFragment = UserProfileFragment.newInstance(mUser);
                     loadFragment(profileFragment);
                     return true;
-                case R.id.navigation_exercises:
-                    toolBar.setTitle("Exercises");
-                    UserExercisesFragment userExercisesFragment = UserExercisesFragment.newInstance(mUser);
-                    loadFragment(userExercisesFragment);
+                case R.id.navigation_exercises: //exercises or programs
+                    toolBar.setTitle("Programs");
+//                    fragment = new UserDailyChallengesFragment();
                     return true;
                 case R.id.navigation_dailychallenges:
                     toolBar.setTitle("Daily Challenges");
-//                    fragment = new UserDailyChallengesFragment();
+                    UserExercisesFragment userExercisesFragment = UserExercisesFragment.newInstance(mUser);
+                    loadFragment(userExercisesFragment);
                     return true;
 
 
@@ -133,14 +133,14 @@ public class UserMainActivity extends AppCompatActivity {
             case R.id.action_logout:
                 LoginManager.getInstance().logOut();
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(UserMainActivity.this,LoginActivity.class));
+                startActivity(new Intent(UserMainActivity.this, LoginActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-        private void loadFragment(Fragment fragment) {
+    private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);

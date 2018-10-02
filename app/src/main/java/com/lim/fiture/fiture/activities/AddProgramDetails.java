@@ -1,5 +1,6 @@
 package com.lim.fiture.fiture.activities;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -7,13 +8,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lim.fiture.fiture.R;
+import com.lim.fiture.fiture.fragments.ConfirmationDialog;
 import com.lim.fiture.fiture.models.Exercise;
 import com.lim.fiture.fiture.models.Program;
 
@@ -26,7 +30,7 @@ import java.util.HashMap;
 public class AddProgramDetails extends AppCompatActivity {
     private Program program;
     private EditText programName, programDescription;
-    private Spinner numofWeeks, type, equipment, difficulty;
+    private Spinner numofWeeks, type, difficulty;
     private Button nextBtn;
     private String action = "";
 
@@ -39,10 +43,36 @@ public class AddProgramDetails extends AppCompatActivity {
         databaseProgram = FirebaseDatabase.getInstance().getReference("Program");
 
         findViews();
-
+        if (getIntent().getStringExtra("action") != null
+                && getIntent().getStringExtra("action").equals("edit")) {
+            program = (Program) getIntent().getSerializableExtra("program");
+            action = "edit";
+            resumeValues();
+        } else {
+            program = new Program();
+        }
     }
 
-    private void findViews(){
+    private void resumeValues() {
+        programName.setText(program.getProgramsName());
+        programDescription.setText(program.getProgramDesc());
+        setSpinnerValues(R.array.num_of_weeks, numofWeeks, program.getProgramWeeks());
+        setSpinnerValues(R.array.type, type, program.getProgramType());
+        setSpinnerValues(R.array.Difficulty, difficulty, program.getProgramDifficulty());
+    }
+
+    private void setSpinnerValues(int resource, Spinner spinner, String compareValue) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, resource, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        if (compareValue != null) {
+            int spinnerPosition = adapter.getPosition(compareValue);
+            spinner.setSelection(spinnerPosition);
+        }
+    }
+
+
+    private void findViews() {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2980b9")));
         getSupportActionBar().setTitle("Program Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -51,13 +81,14 @@ public class AddProgramDetails extends AppCompatActivity {
         numofWeeks = findViewById(R.id.numofWeeks);
         programDescription = findViewById(R.id.programDescription);
         type = findViewById(R.id.type);
-        equipment = findViewById(R.id.equipment);
         difficulty = findViewById(R.id.difficulty);
         nextBtn = findViewById(R.id.nextBtn);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                program = new Program();
+                if(!action.equals("edit")) {
+                    program = new Program();
+                }
 
                 program.setProgramsName(programName.getText().toString());
                 program.setProgramDesc(programDescription.getText().toString());
@@ -65,23 +96,17 @@ public class AddProgramDetails extends AppCompatActivity {
                 program.setProgramType(type.getSelectedItem().toString());
                 program.setProgramDifficulty(difficulty.getSelectedItem().toString());
 
-            //   String upload = databaseProgram.push().getKey();
+                if(!action.equals("edit")) {
+                    String programId = databaseProgram.push().getKey();
+                    program.setProgramsId(programId);
+                    databaseProgram.child(programId).setValue(program);
+                }else{
+                    databaseProgram.child(program.getProgramsId()).setValue(program);
+                }
 
-//               databaseProgram.push().setValue(program);
-//                Log.e("keyyy", databaseProgram.push().getKey());
-
-//                HashMap<String, String> meMap=new HashMap<String, String>();
-//                meMap.put("programsName", programName.getText().toString());
-//                meMap.put("programDescription",programDescription.getText().toString());
-//                meMap.put("numofWeeks",numofWeeks.getSelectedItem().toString());
-//                meMap.put("type",type.getSelectedItem().toString());
-//                meMap.put("difficulty",difficulty.getSelectedItem().toString());
-
-//                Intent intent = new Intent(AddProgramDetails.this, AddProgramExercise.class);
-////                intent.putExtra("Program", meMap);
-//                startActivity(intent);
-
-           startActivity(new Intent(AddProgramDetails.this, AddProgramExercise.class).putExtra("program",program));
+                startActivity(new Intent(AddProgramDetails.this, AddProgramExercise.class)
+                        .putExtra("program", program)
+                        .putExtra("action", action));
             }
         });
 

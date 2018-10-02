@@ -43,7 +43,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_layout_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_layout_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -62,7 +62,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             holder.exerciseMainMuscleGroup.setText(exercises.get(position).getMainMuscleGroup());
             holder.exerciseType.setText(exercises.get(position).getType());
             holder.exerciseDifficulty.setText(exercises.get(position).getDifficulty());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -91,21 +91,14 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             exerciseType = itemView.findViewById(R.id.exerciseType);
             exerciseMainMuscleGroup = itemView.findViewById(R.id.exerciseMainMuscleGroup);
             exerciseDifficulty = itemView.findViewById(R.id.exerciseDifficulty);
-            //remove
-//            allFilter = itemView.findViewById(R.drawable.ic_all_exercises);
-//            loseFilter = itemView.findViewById(R.drawable.ic_lose);
-//            gainFilter = itemView.findViewById(R.drawable.ic_gain);
-//            maintainFilter = itemView.findViewById(R.drawable.ic_maintain);
-
-
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     context.startActivity(new Intent(context, AddExerciseStepOne.class)
-                            .putExtra("exercise",exercises.get(getAdapterPosition()))
-                            .putExtra("action","edit"));
+                            .putExtra("exercise", exercises.get(getAdapterPosition()))
+                            .putExtra("action", "edit"));
 
                 }
             });
@@ -113,7 +106,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((AdminActivity)context).showConfirmationDialog("Delete Exercise","Are you sure you want to delete this exercise?", exercises.get(getAdapterPosition()),getAdapterPosition());
+                    ((AdminActivity) context).showConfirmationDialog("Delete Exercise", "Are you sure you want to delete this exercise?", exercises.get(getAdapterPosition()), getAdapterPosition());
                 }
             });
 

@@ -159,34 +159,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-//    public void loseFilterExercises() {
-//        exercises = new ArrayList<>();
-//        exerciseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-////                for (final DataSnapshot reportSnapshot : dataSnapshot.getChildren()) {
-//                    Exercise exercise = dataSnapshot.getValue(Exercise.class);
-//                    if (exercise.getType().equals("Lose")) {
-//
-//
-//                        exercises.add(exercise);
-//                        exercisesAdapter = new ExercisesAdapter(AdminActivity.this, exercises);
-//                        exercisesList.setAdapter(exercisesAdapter);
-//
-//
-//                        Log.e("maintainExercises", exercise.getExerciseName());
-//                    }
-//                }
-//
-////            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-
     public void maintainFilterExercises() {
         exercises = new ArrayList<>();
         exerciseReference.addValueEventListener(new ValueEventListener() {
@@ -338,7 +310,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.programs:
-                Toast.makeText(this, "Programs", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AdminActivity.this, ProgramActivity.class));
                 return true;
             case R.id.action_search:
                 Toast.makeText(this, "Implement search", Toast.LENGTH_SHORT).show();

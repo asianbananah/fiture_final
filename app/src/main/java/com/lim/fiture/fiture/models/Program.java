@@ -14,7 +14,6 @@ public class Program implements Serializable {
     private String programDesc;
     private String programType;
     private String programWeeks;
-    private ArrayList<ProgramExercise> programExercises;
     private ArrayList<String> programImages;
 
     public Program() {
@@ -27,7 +26,6 @@ public class Program implements Serializable {
         this.programDesc = programDesc;
         this.programType = programType;
         this.programWeeks = programWeeks;
-        this.programExercises = programExercises;
         this.programImages = programImages;
     }
 
@@ -79,14 +77,6 @@ public class Program implements Serializable {
         this.programWeeks = programWeeks;
     }
 
-    public ArrayList<ProgramExercise> getProgramExercises() {
-        return programExercises;
-    }
-
-    public void setProgramExercises(ArrayList<ProgramExercise> programExercises) {
-        this.programExercises = programExercises;
-    }
-
     public ArrayList<String> getProgramImages() {
         return programImages;
     }
@@ -98,14 +88,12 @@ public class Program implements Serializable {
     @Override
     public String toString() {
         return "Program{" +
-                "programsId='" + programsId + '\'' +
+                "programsId='" + 0 + '\'' +
                 ", programsName='" + programsName + '\'' +
                 ", programDifficulty='" + programDifficulty + '\'' +
                 ", programDesc='" + programDesc + '\'' +
                 ", programType='" + programType + '\'' +
                 ", programWeeks='" + programWeeks + '\'' +
-                ", programExercises=" + programExercises.toString() +
-                ", programImages=" + programImages.toString() +
                 '}';
     }
 }

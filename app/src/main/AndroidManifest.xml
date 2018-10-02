@@ -61,7 +61,9 @@
         <activity android:name=".activities.FitnessGoalActivity" />
         <activity android:name=".activities.UserMainActivity" />
         <activity android:name=".activities.AddProgramDetails" />
-        <activity android:name=".activities.AddProgramExercise"></activity>
+        <activity android:name=".activities.AddProgramExercise" />
+        <activity android:name=".activities.ProgramActivity" />
+        <activity android:name=".activities.AddProgramImages"></activity>
     </application>
 
 </manifest>

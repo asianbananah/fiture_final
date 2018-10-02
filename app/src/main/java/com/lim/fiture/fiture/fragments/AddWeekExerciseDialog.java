@@ -105,42 +105,48 @@ public class AddWeekExerciseDialog extends DialogFragment {
             public void onClick(View view) {
 //                programExercise.setProgramId();
                 //TODO: lacks program ID
-                programExercise.setSets(Integer.parseInt(setsTxt.getText().toString()));
-                programExercise.setReps(Integer.parseInt(repsTxt.getText().toString()));
-                programExercise.setRest(Integer.parseInt(restTxt.getText().toString()));
-                programExercise.setDay(daySpinner.getSelectedItem().toString());
-                programExercise.setWeek(mWeek);
-                programExercise.setExerciseName(exerciseSpinner.getSelectedItem().toString());
-                for(int i = 0; i<exercises.size(); i++){
-                    if(exercises.get(i).getExerciseName().equals(exerciseSpinner.getSelectedItem().toString())){
-                        programExercise.setExerciseId(exercises.get(i).getExerciseId());
+                try {
+                    programExercise.setSets(Integer.parseInt(setsTxt.getText().toString()));
+                    programExercise.setReps(Integer.parseInt(repsTxt.getText().toString()));
+                    programExercise.setRest(Integer.parseInt(restTxt.getText().toString()));
+                    programExercise.setDay(daySpinner.getSelectedItem().toString());
+                    programExercise.setWeek(mWeek);
+                    programExercise.setExerciseName(exerciseSpinner.getSelectedItem().toString());
+                    for (int i = 0; i < exercises.size(); i++) {
+                        if (exercises.get(i).getExerciseName().equals(exerciseSpinner.getSelectedItem().toString())) {
+                            programExercise.setExerciseId(exercises.get(i).getExerciseId());
+                        }
                     }
+                    ((AddProgramExercise) getActivity()).addWeekExercise(mWeek, programExercise);
+                    dismiss();
                 }
-                ((AddProgramExercise)getActivity()).addWeekExercise(mWeek,programExercise);
-                dismiss();
-
-
-
-
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
     }
-
+    int x = 0;
     private void getExerciseList(){
         exerciseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Exercise exercise = dataSnapshot.getValue(Exercise.class);
-                Log.d(TAG, exercise.toString());
-                exerciseNames.add(exercise.getExerciseName());
-                exercises.add(exercise);
+                try {
+                    Exercise exercise = dataSnapshot.getValue(Exercise.class);
+                    Log.d(TAG, "error in: " + x++);
+                    Log.d(TAG, exercise.toString());
+                    exerciseNames.add(exercise.getExerciseName());
+                    exercises.add(exercise);
 
-                exerciseAdapter = new ArrayAdapter<String>(getActivity(),
-                        android.R.layout.simple_spinner_item, exerciseNames);
-                exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                exerciseSpinner.setAdapter(exerciseAdapter);
-                exerciseSpinner.setSelection(0);
-//                exerciseSpinner.setOnItemSelectedListener(new select_karant());
+                    exerciseAdapter = new ArrayAdapter<String>(getActivity(),
+                            android.R.layout.simple_spinner_item, exerciseNames);
+                    exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    exerciseSpinner.setAdapter(exerciseAdapter);
+                    exerciseSpinner.setSelection(0);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 
             }
 

@@ -49,6 +49,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:inputType="number"
             android:id="@+id/repsTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,6 +71,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:inputType="number"
             android:id="@+id/setsTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,6 +93,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:inputType="number"
             android:id="@+id/restTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

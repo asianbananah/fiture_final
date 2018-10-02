@@ -5,6 +5,7 @@ package com.lim.fiture.fiture.models;
  */
 
 public class ProgramExercise {
+    private String programExerciseId;
     private String programId;
     private String exerciseId;
     private String exerciseName;
@@ -17,7 +18,8 @@ public class ProgramExercise {
     public ProgramExercise() {
     }
 
-    public ProgramExercise(String programId, String exerciseId, String exerciseName, int sets, int reps, int rest, String day, int week) {
+    public ProgramExercise(String programExerciseId, String programId, String exerciseId, String exerciseName, int sets, int reps, int rest, String day, int week) {
+        this.programExerciseId = programExerciseId;
         this.programId = programId;
         this.exerciseId = exerciseId;
         this.exerciseName = exerciseName;
@@ -26,6 +28,14 @@ public class ProgramExercise {
         this.rest = rest;
         this.day = day;
         this.week = week;
+    }
+
+    public String getProgramExerciseId() {
+        return programExerciseId;
+    }
+
+    public void setProgramExerciseId(String programExerciseId) {
+        this.programExerciseId = programExerciseId;
     }
 
     public String getProgramId() {

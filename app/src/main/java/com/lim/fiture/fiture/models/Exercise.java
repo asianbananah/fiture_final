@@ -121,19 +121,19 @@ public class Exercise implements Serializable {
 //                ", exerciseImages=" + exerciseImages +
 //                '}';
 //    }
-//    @Override
-//    public String toString(){
-//        return
-//                "id: " + this.getExerciseId() + "\n" +
-//                        "exerciseName: " + this.getExerciseName() + "\n" +
-//                        "mainMuscleGroup: " + this.getMainMuscleGroup() + "\n" +
-//                        "otherMuscleGroup: " + this.getOtherMuscleGroup() + "\n" +
-//                        "type: " + this.getType() + "\n" +
-//                        "equipment: " + this.getEquipment() + "\n" +
-//                        "difficulty: " + this.getDifficulty() + "\n" +
-//                        "exerciseSteps: " + this.getSteps().toString() + "\n" +
-//                        "exerciseImages: " + this.getExerciseImages().toString();
-//    }
+    @Override
+    public String toString(){
+        return
+                "id: " + this.getExerciseId() + "\n" +
+                        "exerciseName: " + this.getExerciseName() + "\n" +
+                        "mainMuscleGroup: " + this.getMainMuscleGroup() + "\n" +
+                        "otherMuscleGroup: " + this.getOtherMuscleGroup() + "\n" +
+                        "type: " + this.getType() + "\n" +
+                        "equipment: " + this.getEquipment() + "\n" +
+                        "difficulty: " + this.getDifficulty() + "\n" +
+                        "exerciseSteps: " + this.getSteps().toString() + "\n" +
+                        "exerciseImages: " + this.getExerciseImages().toString();
+    }
 
      public ArrayList<String> getExerciseImages() {
         return exerciseImages;

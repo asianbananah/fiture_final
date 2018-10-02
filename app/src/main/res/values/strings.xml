@@ -98,8 +98,8 @@
     </string-array>
 
     <!--<string name="app_name">Bottom Navigation</string>-->
-    <string name="title_exercises">Exercises</string>
     <string name="title_daily">Daily Challenges</string>
+    <string name="title_programs">Programs</string>
     <string name="title_user">Profile</string>
 
     <string name="exercises">Exercises</string>

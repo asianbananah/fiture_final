@@ -9,7 +9,7 @@
         android:id="@+id/finishBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="FINISH"
+        android:text="NEXT"
         android:textColor="@android:color/white"
         android:background="#2980b9"
         android:layout_alignParentBottom="true"/>

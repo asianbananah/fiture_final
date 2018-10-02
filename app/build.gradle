@@ -60,9 +60,12 @@ dependencies {
     implementation project(':sdk-v1.0.0')
     implementation project(':samsung-health-service-v1.3.0')
     implementation 'com.github.clans:fab:1.6.4'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+
 
 
 

@@ -62,8 +62,19 @@
         <activity android:name=".activities.UserMainActivity" />
         <activity android:name=".activities.AddProgramDetails" />
         <activity android:name=".activities.AddProgramExercise" />
-        <activity android:name=".activities.ProgramActivity" />
-        <activity android:name=".activities.AddProgramImages"></activity>
+        <activity android:name=".activities.AddProgramImages" />
+        <activity android:name=".activities.ProgramDetailsActivity" />
+        <activity
+            android:name=".activities.StartProgramActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".activities.DayExerciseActivity" />
+        <activity android:name=".activities.ExerciseDetailsActivity" />
+        <activity android:name=".activities.DoProgramActivity" />
+        <activity android:name=".activities.AddDailyChallengesDetails" />
+        <activity android:name=".activities.AddDailyChallengesImages" />
+        <activity android:name=".activities.DailyChallengesDetailsActivity" />
+        <activity android:name=".activities.ExecuteChallengeActivity" />
+        <activity android:name=".activities.ActivityExecuteChallengeTrackTime"></activity>
     </application>
 
 </manifest>

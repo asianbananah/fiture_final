@@ -50,20 +50,39 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     //bottom nav bar
     implementation 'com.android.support:design:26.1.0'
-    // glide image library
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-    // volley http library
-    implementation 'com.android.volley:volley:1.0.0'
-    implementation 'com.google.code.gson:gson:2.6.2'
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':samsung-health-data-v1.3.0')
     implementation project(':sdk-v1.0.0')
     implementation project(':samsung-health-service-v1.3.0')
+    // glide image library
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.github.dmytrodanylyk:android-morphing-button:98a4986e56'
+    implementation 'com.ramotion.foldingcell:folding-cell:1.2.2'
+    implementation 'com.loopeer.library:cardstack:1.0.2'
+    //fonts
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'com.github.shelake-chetan:CustomToast:1.0.2'
+
 
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

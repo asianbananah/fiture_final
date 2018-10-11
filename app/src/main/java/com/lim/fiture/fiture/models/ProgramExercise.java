@@ -1,10 +1,12 @@
 package com.lim.fiture.fiture.models;
 
+import java.io.Serializable;
+
 /**
  * Created by User on 26/09/2018.
  */
 
-public class ProgramExercise {
+public class ProgramExercise implements Serializable{
     private String programExerciseId;
     private String programId;
     private String exerciseId;

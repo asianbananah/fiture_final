@@ -97,10 +97,25 @@
         <item>Sunday</item>
     </string-array>
 
+    <string name="add_program">Add Program</string>
+
+    <string-array name="usePedometer">
+        <item>False</item>
+        <item>True</item>
+    </string-array>
+
+    <string-array name="challengeTrackValue">
+        <item>Time</item>
+        <item>Steps</item>
+        <item>Distance</item>
+    </string-array>
+
     <!--<string name="app_name">Bottom Navigation</string>-->
     <string name="title_daily">Daily Challenges</string>
     <string name="title_programs">Programs</string>
     <string name="title_user">Profile</string>
+    <string name="title_mydailychallenges">My Daily Challenges</string>
+    <string name="title_myprograms">My Programs</string>
 
     <string name="exercises">Exercises</string>
     <string name="delete">DELETE</string>

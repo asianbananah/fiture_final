@@ -147,7 +147,7 @@ public class UserExercisesFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Exercise exercise = dataSnapshot.getValue(Exercise.class);
-                Log.d(TAG, exercise.toString());
+                Log.d("exerciseee", exercise.toString());
                 progressBar.setVisibility(View.GONE);
                 if(exercisesRelative.getVisibility() == View.INVISIBLE)
                     exercisesRelative.setVisibility(View.VISIBLE);

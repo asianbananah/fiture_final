@@ -15,6 +15,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.activities.AdminActivity;
+import com.lim.fiture.fiture.fragments.AdminExerciseFragment;
 import com.lim.fiture.fiture.models.Exercise;
 import com.lim.fiture.fiture.models.ExerciseFilter;
 
@@ -30,10 +31,12 @@ public class AdminExerciseFiltersAdapter extends RecyclerView.Adapter <AdminExer
 
     private ArrayList<ExerciseFilter> filters;
     private Context context;
+    private AdminExerciseFragment fragment;
 
-    public AdminExerciseFiltersAdapter(ArrayList<ExerciseFilter> filters, Context context) {
+    public AdminExerciseFiltersAdapter(ArrayList<ExerciseFilter> filters, Context context, AdminExerciseFragment fragment) {
         this.filters = filters;
         this.context = context;
+        this.fragment = fragment;
     }
 
     @Override
@@ -68,16 +71,16 @@ public class AdminExerciseFiltersAdapter extends RecyclerView.Adapter <AdminExer
                 @Override
                 public void onClick(View view) {
                     if(filters.get(getAdapterPosition()).getName().equalsIgnoreCase("all")){
-                        ((AdminActivity)context).loadExercises();
+                        fragment.loadExercises();
                        Toast.makeText(context, filters.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
                     }else if (filters.get(getAdapterPosition()).getName().equalsIgnoreCase("lose")){
-                        ((AdminActivity)context).filterExercises("Lose");
+                        fragment.filterExercises("Lose");
                        Toast.makeText(context, filters.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
                     }else if (filters.get(getAdapterPosition()).getName().equalsIgnoreCase("maintain")){
-                        ((AdminActivity)context).filterExercises("Maintain");
+                        fragment.filterExercises("Maintain");
                         Toast.makeText(context, filters.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
                     }else if (filters.get(getAdapterPosition()).getName().equalsIgnoreCase("gain")){
-                        ((AdminActivity)context).filterExercises("Gain");
+                        fragment.filterExercises("Gain");
                         Toast.makeText(context, filters.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
                     }
                 }

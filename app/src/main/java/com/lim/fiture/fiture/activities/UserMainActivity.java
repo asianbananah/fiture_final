@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -25,9 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lim.fiture.fiture.R;
+import com.lim.fiture.fiture.fragments.UserDailyChallenges2Fragment;
+import com.lim.fiture.fiture.fragments.UserDailyChallengesFragment;
 import com.lim.fiture.fiture.fragments.UserExercisesFragment;
 import com.lim.fiture.fiture.fragments.UserProfileFragment;
+import com.lim.fiture.fiture.fragments.UserProgramsFragment;
 import com.lim.fiture.fiture.models.User;
+import com.lim.fiture.fiture.util.BottomNavigationViewHelper;
 
 
 /**
@@ -89,6 +92,7 @@ public class UserMainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationViewHelper.removeShiftMode(navigation);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -103,12 +107,18 @@ public class UserMainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_exercises: //exercises or programs
                     toolBar.setTitle("Programs");
-//                    fragment = new UserDailyChallengesFragment();
+                   UserDailyChallengesFragment userDailyChallengesFragment = UserDailyChallengesFragment.newInstance(mUser);
+                   loadFragment(userDailyChallengesFragment);
                     return true;
                 case R.id.navigation_dailychallenges:
                     toolBar.setTitle("Daily Challenges");
-                    UserExercisesFragment userExercisesFragment = UserExercisesFragment.newInstance(mUser);
-                    loadFragment(userExercisesFragment);
+                    UserDailyChallenges2Fragment userDailyChallenges2Fragment = UserDailyChallenges2Fragment.newInstance(mUser);
+                    loadFragment(userDailyChallenges2Fragment);
+                    return true;
+                case R.id.navigation_myprograms:
+                    toolBar.setTitle("My Programs");
+                    UserProgramsFragment userProgramsFragment = UserProgramsFragment.newInstance(mUser);
+                    loadFragment(userProgramsFragment);
                     return true;
 
 
@@ -146,6 +156,10 @@ public class UserMainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public User getCurrentUser(){
+        return this.mUser;
     }
 }
 

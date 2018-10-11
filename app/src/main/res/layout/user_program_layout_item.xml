@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <com.ramotion.foldingcell.FoldingCell
+            android:id="@+id/folding_cell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+            ​
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- content header line -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bgContentTop"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="7dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Program"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/menu_icon" />
+
+                </RelativeLayout>
+
+                <!-- content header image -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/programImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/head_image" />
+
+                </RelativeLayout>
+
+                <!-- content body layout -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bgContent"
+                    android:orientation="vertical"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="9dp">
+
+                    <!-- avatar and name part -->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+
+                        <ImageView
+                            android:id="@+id/content_avatar"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_exercises_num" />
+
+                        <TextView
+                            android:id="@+id/programName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/content_avatar"
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_toEndOf="@id/content_avatar"
+                            android:layout_toRightOf="@id/content_avatar"
+                            android:text="Program Name"
+                            android:textColor="@color/mainTextColor"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/programDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/programName"
+                            android:layout_alignStart="@id/programName"
+                            android:layout_below="@+id/programName"
+                            android:layout_marginBottom="-2dp"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginStart="3dp"
+                            android:text="This program sddgdfgdkfg dfgjf dflkgjdklfgj dfgj dkfljg dkfjg dfgj dlkfjg fjg dlfkjgd fg dfg dklfjg kdfj"
+                            android:textColor="@color/contentBadgeTitle"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/arrow" />
+
+                    </RelativeLayout>
+
+                    <!-- divider line -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginTop="9dp"
+                        android:src="@color/contentDividerLine" />
+
+                    <!-- addresses part -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/content_from_badge"
+                                style="@style/ContentMainBadgeTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:text="Exercises" />
+
+                            <TextView
+                                android:id="@+id/exercisesTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignLeft="@id/content_from_badge"
+                                android:layout_alignStart="@id/content_from_badge"
+                                android:layout_below="@id/content_from_badge"
+                                android:text="14"
+                                android:textColor="@color/mainTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/content_to_badge"
+                                style="@style/ContentMainBadgeTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:text="Weeks" />
+
+                            <TextView
+                                android:id="@+id/weeksTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignLeft="@id/content_to_badge"
+                                android:layout_alignStart="@id/content_to_badge"
+                                android:layout_below="@id/content_to_badge"
+                                android:text="2"
+                                android:textColor="@color/mainTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/arrow" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- divider line -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginTop="7dp"
+                        android:src="@color/contentDividerLine" />
+
+                    <!-- dates part -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/content_delivery_date_badge"
+                                style="@style/ContentMainBadgeTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:text="Type" />
+
+                            <TextView
+                                android:id="@+id/typeTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignLeft="@id/content_delivery_date_badge"
+                                android:layout_alignStart="@id/content_delivery_date_badge"
+                                android:layout_below="@id/content_delivery_date_badge"
+                                android:text="Gain"
+                                android:textColor="@color/mainTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/content_deadline_badge"
+                                style="@style/ContentMainBadgeTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:text="Difficulty" />
+
+                            <TextView
+                                android:id="@+id/difficultyTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignLeft="@id/content_deadline_badge"
+                                android:layout_alignStart="@id/content_deadline_badge"
+                                android:layout_below="@id/content_deadline_badge"
+                                android:text="Beginner"
+                                android:textColor="@color/mainTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- request button -->
+                    <TextView
+                        android:id="@+id/viewProgramBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/btnRequest"
+                        android:padding="10dp"
+                        android:text="View Program"
+                        android:textAlignment="center"
+                        android:textColor="@color/mainTextColor"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/contentBadgeTitle"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            ​
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bgContent"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- LEFT TITLE PART -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"
+                    android:layout_weight="3"
+                    android:background="@color/bgTitleLeft"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:id="@+id/title_time_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:text="Exercises"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/titleNumExercises"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/title_time_label"
+                        android:layout_marginBottom="5dp"
+                        android:text="14"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
+
+
+                </RelativeLayout>
+                <!-- RIGHT TITLE PART -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/bgTitleRight"
+                    android:paddingBottom="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="20dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/title_from_to_dots"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/from_to_purple" />
+
+                    <TextView
+                        android:id="@+id/titleProgramName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/title_from_to_dots"
+                        android:layout_marginTop="-5dp"
+                        android:layout_toEndOf="@+id/title_from_to_dots"
+                        android:layout_toRightOf="@+id/title_from_to_dots"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:singleLine="true"
+                        android:text="Program Name"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/title_from_to_dots_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/titleProgramName"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/title_from_to_dots"
+                        android:layout_toRightOf="@+id/title_from_to_dots"
+                        android:src="@color/contentDividerLine" />
+
+                    <TextView
+                        android:id="@+id/titleProgramDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/title_from_to_dots_divider"
+                        android:layout_toEndOf="@+id/title_from_to_dots"
+                        android:layout_toRightOf="@+id/title_from_to_dots"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:singleLine="true"
+                        android:text="Program Description"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/titleProgramWeeks"
+                        style="@style/TitleBadgeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:text="4"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/TitleBadgeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/titleProgramWeeks"
+                        android:layout_alignLeft="@+id/titleProgramWeeks"
+                        android:layout_alignStart="@+id/titleProgramWeeks"
+                        android:text="Week/s" />
+
+
+                    <TextView
+                        style="@style/TitleBadgeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/titleProgramDifficulty"
+                        android:layout_alignLeft="@+id/titleProgramDifficulty"
+                        android:layout_alignStart="@+id/titleProgramDifficulty"
+                        android:text="Difficulty" />
+
+                    <TextView
+                        android:id="@+id/titleProgramDifficulty"
+                        style="@style/TitleBadgeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:paddingRight="5dp"
+                        android:text="Beginner"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/titleProgramType"
+                        style="@style/TitleBadgeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_toLeftOf="@+id/titleProgramDifficulty"
+                        android:text="Gain"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/TitleBadgeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/titleProgramType"
+                        android:layout_alignLeft="@+id/titleProgramType"
+                        android:layout_alignStart="@+id/titleProgramType"
+                        android:text="Type" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </com.ramotion.foldingcell.FoldingCell>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

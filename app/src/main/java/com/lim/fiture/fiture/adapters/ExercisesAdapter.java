@@ -1,8 +1,10 @@
 package com.lim.fiture.fiture.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -17,11 +19,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.activities.AddExerciseStepOne;
 import com.lim.fiture.fiture.activities.AdminActivity;
+import com.lim.fiture.fiture.fragments.AdminExerciseFragment;
 import com.lim.fiture.fiture.models.Exercise;
 
 import java.util.ArrayList;
@@ -34,10 +39,13 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
 
     private Context context;
     public ArrayList<Exercise> exercises;
+    private AdminExerciseFragment adminExerciseFragment;
+    private DatabaseReference exerciseReference;
 
     public ExercisesAdapter(Context context, ArrayList<Exercise> exercises) {
         this.context = context;
         this.exercises = exercises;
+        this.adminExerciseFragment = adminExerciseFragment;
     }
 
 
@@ -106,7 +114,28 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((AdminActivity) context).showConfirmationDialog("Delete Exercise", "Are you sure you want to delete this exercise?", exercises.get(getAdapterPosition()), getAdapterPosition());
+                    exerciseReference = FirebaseDatabase.getInstance().getReference("Exercises");
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setTitle("Delete Exercise");
+                    builder.setMessage("Are you sure you want to delete this exercise?");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+
+                        exerciseReference.child(exercises.get(getAdapterPosition()).getExerciseId()).removeValue();
+                        exercises.remove(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                        notifyItemRangeChanged(getAdapterPosition(), exercises.size());
+
+                    });
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
                 }
             });
 

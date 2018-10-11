@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_exercises"
+        android:icon="@drawable/ic_myprogramsfinal"
+        android:title="Exercises"
+        app:showAsAction="always|withText"/>
+
+    <item
+
+        android:id="@+id/navigation_myprograms"
+        android:icon="@drawable/running"
+        android:title="@string/title_programs"
+        app:showAsAction="always|withText"/>
+
+    <item
+        android:id="@+id/navigation_dailychallenges"
+        android:icon="@drawable/dailychallenges"
+        android:title="@string/title_daily"
+        app:showAsAction="always|withText"/>
+
+
+</menu>

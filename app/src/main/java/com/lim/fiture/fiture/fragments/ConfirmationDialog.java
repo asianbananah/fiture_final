@@ -10,11 +10,8 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.lim.fiture.fiture.activities.AdminActivity;
-import com.lim.fiture.fiture.activities.ProgramActivity;
 import com.lim.fiture.fiture.models.Exercise;
 import com.lim.fiture.fiture.models.Program;
-import com.wdullaer.materialdatetimepicker.date.DateRangeLimiter;
 
 /**
  * Created by User on 19/09/2018.
@@ -75,7 +72,7 @@ public class ConfirmationDialog extends DialogFragment {
                 exerciseReference.child(exercise.getExerciseId()).removeValue();
 
                 Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
-                ((AdminActivity) getActivity()).updateExerciseListAfterDelete(position);
+//                ((AdminActivity) getActivity()).updateExerciseListAfterDelete(position);
 
 
             }

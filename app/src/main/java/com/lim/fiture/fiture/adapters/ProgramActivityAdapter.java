@@ -6,14 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,8 +21,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.activities.AddProgramDetails;
-import com.lim.fiture.fiture.activities.AddProgramExercise;
-import com.lim.fiture.fiture.activities.ProgramActivity;
 import com.lim.fiture.fiture.models.Program;
 
 import java.util.ArrayList;
@@ -71,7 +67,6 @@ public class ProgramActivityAdapter extends RecyclerView.Adapter<ProgramActivity
         programExerciseReference = FirebaseDatabase.getInstance().getReference("ProgramExercise");
         holder.deleteBtn.setOnClickListener(view -> {
 
-            Toast.makeText(context, "clicked",Toast.LENGTH_LONG).show();
             AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
             builder.setTitle("Delete Program:");
             builder.setMessage("Are you sure you want to delete this program?");

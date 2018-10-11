@@ -1,6 +1,7 @@
 package com.lim.fiture.fiture.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lim.fiture.fiture.R;
+import com.lim.fiture.fiture.activities.ExerciseDetailsActivity;
 import com.lim.fiture.fiture.models.Exercise;
 
 import java.util.ArrayList;
@@ -72,6 +74,7 @@ public class UserRecommendedExercisesAdapter extends RecyclerView.Adapter<UserRe
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(context, "Exercise clicked!", Toast.LENGTH_SHORT).show();
+                    context.startActivity(new Intent(context, ExerciseDetailsActivity.class).putExtra("exercises", exercises.get(getAdapterPosition())));
                 }
             });
         }

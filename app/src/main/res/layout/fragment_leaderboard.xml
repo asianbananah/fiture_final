@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="#4C6AF4"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/userRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/relly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/outline"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:src="#D1D1D1" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userPic"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_centerInParent="true" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        android:id="@+id/userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hannah Lim"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/userPoints"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1012"
+                        android:textColor="#D2D2D2"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card2"
+            android:layout_below="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="5dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
+
+</RelativeLayout>

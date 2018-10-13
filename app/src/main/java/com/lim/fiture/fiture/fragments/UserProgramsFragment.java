@@ -14,10 +14,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.adapters.UserProgramsAdapter;
 import com.lim.fiture.fiture.models.Program;
 import com.lim.fiture.fiture.models.User;
+import com.lim.fiture.fiture.util.GlobalUser;
 
 import java.util.ArrayList;
 
@@ -87,9 +89,25 @@ public class UserProgramsFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Program program = dataSnapshot.getValue(Program.class);
-                userPrograms.add(program);
-                adapter = new UserProgramsAdapter(getActivity(), userPrograms);
-                recyclerView.setAdapter(adapter);
+                DatabaseReference completedProgramsRef = FirebaseDatabase.getInstance().getReference()
+                        .child("UserCompletedPrograms")
+                        .child(GlobalUser.getmUser().getiD())
+                        .child(program.getProgramsId());
+                completedProgramsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.exists()){
+                            userPrograms.add(program);
+                            adapter = new UserProgramsAdapter(getActivity(), userPrograms);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override

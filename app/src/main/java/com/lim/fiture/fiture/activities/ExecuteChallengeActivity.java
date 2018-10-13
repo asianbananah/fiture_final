@@ -1,11 +1,16 @@
 package com.lim.fiture.fiture.activities;
 
-import android.app.FragmentManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.icu.text.DecimalFormat;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +18,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lim.fiture.fiture.R;
+import com.lim.fiture.fiture.fragments.ChallengeCompleteDialog;
 import com.lim.fiture.fiture.fragments.ChallengeDetailsDialog;
 import com.lim.fiture.fiture.models.DailyChallenge;
 import com.lim.fiture.fiture.models.User;
+import com.lim.fiture.fiture.util.GlobalUser;
 import com.lim.fiture.fiture.util.StepDetector;
 import com.lim.fiture.fiture.util.StepListener;
 
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
+
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class ExecuteChallengeActivity extends AppCompatActivity implements SensorEventListener, StepListener {
 
     private TextView instructionsTxt, kmTxt, stepsTxt, timeTxt;
@@ -33,16 +51,25 @@ public class ExecuteChallengeActivity extends AppCompatActivity implements Senso
     private SensorManager sensorManager;
     private Sensor accel;
     private int numSteps;
+    private float distanceRun;
 
     //timer
     private long startTime = 0;
 
+    private DatabaseReference userReference;
+    private KonfettiView viewKonfetti;
+
+    DecimalFormat d = new DecimalFormat("#.##");
+
+    private DatabaseReference completedChallengeRef;
+    private String TAG = "ExecuteChallengeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_execute_challenge);
 
+        getUser();
         getDataFromPreviousActivity();
         findViews();
         showChallengeDetailsDialog();
@@ -52,7 +79,33 @@ public class ExecuteChallengeActivity extends AppCompatActivity implements Senso
         dailyChallenge = (DailyChallenge) getIntent().getSerializableExtra("dailyChallenge");
     }
 
+    private void getUser(){
+//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        Log.d(TAG, "userId: " + userId);
+//        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+//        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Log.d(TAG, "dataSnapshot: " + dataSnapshot.toString());
+//                mUser = dataSnapshot.getValue(User.class);
+//                Log.d(TAG, "mUser: " + mUser.getiD());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+        mUser = GlobalUser.getmUser();
+        Log.d(TAG, "globalUser: " + mUser.toString());
+    }
+
     public void findViews() {
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2980b9")));
+        getSupportActionBar().setTitle(dailyChallenge.getChallengeName());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
@@ -66,10 +119,12 @@ public class ExecuteChallengeActivity extends AppCompatActivity implements Senso
                 showChallengeDetailsDialog();
             }
         });
+
         kmTxt = findViewById(R.id.kmTxt);
         stepsTxt = findViewById(R.id.stepsTxt);
         timeTxt = findViewById(R.id.timeTxt);
         startChallengeBtn = findViewById(R.id.startChallengeBtn);
+        viewKonfetti = findViewById(R.id.viewKonfetti);
         startChallengeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +160,14 @@ public class ExecuteChallengeActivity extends AppCompatActivity implements Senso
     public void step(long timeNs) {
         numSteps++;
         stepsTxt.setText(String.valueOf(numSteps));
-        kmTxt.setText(String.valueOf(getDistanceRun(numSteps)));
+        d.format(getDistanceRun(numSteps));
+        kmTxt.setText((String.format(String.valueOf(getDistanceRun(numSteps)),"%.02f", d)));
+
+        if(isChallengeCompleted()){
+            sensorManager.unregisterListener(ExecuteChallengeActivity.this);
+            stopTimer();
+            showChallengeCompleteDialog();
+        }
     }
 
     Handler timerHandler = new Handler();
@@ -125,9 +187,27 @@ public class ExecuteChallengeActivity extends AppCompatActivity implements Senso
     };
 
     private void showChallengeDetailsDialog() {
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         ChallengeDetailsDialog challengeDetailsDialog = ChallengeDetailsDialog.newInstance(dailyChallenge);
         challengeDetailsDialog.show(fm, "fragment_challenge_details");
+    }
+
+    private void showChallengeCompleteDialog(){
+        FragmentManager fm = getSupportFragmentManager();
+        ChallengeCompleteDialog challengeCompleteDialog = ChallengeCompleteDialog.newInstance(dailyChallenge);
+        challengeCompleteDialog.show(fm, "fragment_challenge_com");
+
+        viewKonfetti.build()
+                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                .setDirection(0.0, 359.0)
+                .setDirection(0.0, 359.0)
+                .setSpeed(1f, 5f)
+                .setFadeOutEnabled(true)
+                .setTimeToLive(2000L)
+                .addShapes(Shape.RECT, Shape.CIRCLE)
+                .addSizes(new Size(12, 5))
+                .setPosition(-50f, viewKonfetti.getWidth() + 50f, -50f, -50f)
+                .streamFor(300, 5000L);
     }
 
     public void startTimer() {
@@ -143,27 +223,15 @@ public class ExecuteChallengeActivity extends AppCompatActivity implements Senso
 
     public float getDistanceRun(long numSteps) {
         //int userHeight = mUser.getHeightInCm();
+        distanceRun = (float) (numSteps * 78) / (float) 100000;
 
-        float distance = (float) (numSteps * 78) / (float) 100000;
-        return distance;
-
-//        switch (mUser.getGender()){
-//            case "Female":
-//                float measurementWomen = (float) (userHeight * 0.413);
-//                float toalDistanceRunWomen = (float) (numSteps * measurementWomen) / (float) 100000;
-//                return;
-//            case "Male":
-//                float measurementMen = (float) (userHeight * 0.413);
-//                float toalDistanceRunMen = (float) (numSteps * measurementMen) / (float) 100000;
-//                return;
-//        }
+        return distanceRun;
 
     }
 
 
-
-//    public float getUsersDistanceRun(long numSteps){
-//    int userHeight = mUser.getHeightInCm();
+//    public float getUsersDistanceRun(long numSteps) {
+//        int userHeight = mUser.getHeightInCm();
 //
 //        float userMeasurementWomen = (float) (userHeight * 0.413);
 //        float women = (float) (numSteps * userMeasurementWomen) / (float) 100000;
@@ -171,70 +239,29 @@ public class ExecuteChallengeActivity extends AppCompatActivity implements Senso
 //        float userMeasurementMen = (float) (userHeight * 0.415);
 //        float men = (float) (numSteps * userMeasurementMen) / (float) 100000;
 //
-//        switch (mUser.getGender()){
+//        switch (mUser.getGender()) {
 //            case "Female":
-//              return women;
+//                distanceRun = women;
 //                break;
 //            case "Male":
+//                distanceRun = men;
 //                break;
-//            return men;
 //
 //        }
-//        return numSteps;
-//
+//        return distanceRun;
 //    }
 
-//    public float getDistanceRun(long numSteps) {
-//        int userHeight = mUser.getHeightInCm();
-//
-//        if (mUser.getGender().equals("Female")) {
-//            float userMeasuermentWomen = (float) (userHeight * 0.413);
-//            float women = (float) (numSteps * userMeasuermentWomen) / (float) 100000;
-//            Log.d("women", "getDistanceRun: "+ women);
-//             return women;
-//        } else if(mUser.getGender().equals("Male")) {
-//            float userMeasuermentMen = (float) (userHeight * 0.415);
-//            float men = (float) (numSteps * userMeasuermentMen) / (float) 100000;
-//            Log.d("men", "getDistanceRun: "+men);
-//            return men;
-//        }
-//
-//
-//
-////        int userHeight = mUser.getHeightInCm();
-////
-////        //TODO: if women
-////        float userMeasurementWomen = (float) (userHeight * 0.413);
-////        float women = (float) (numSteps * userMeasurementWomen) / (float) 100000;
-////
-////        //TODO: if men
-////        float userMeasurementMen = (float) (userHeight * 0.415);
-////        float men = (float) (numSteps * userMeasurementMen) / (float) 100000;
-////
-////
-//////        float distance = (float) (numSteps * userMeasurementWomen) / (float) 100000;
-//////            return distance;
-////        switch (mUser.getGender()) {
-////            case "Female":
-////                return women;
-////            break;
-////            case "Male":
-////                return men;
-////            break;
-////        }
-////
-//////        if (mUser.getGender().equals("Female")) {
-//////            float distance = (float) (numSteps * userMeasurementWomen) / (float) 100000;
-//////
-//////        } else if (mUser.getGender().equals("Male")) {
-//////            float distance = (float) (numSteps * userMeasurementMen) / (float) 100000;
-//////
-//////        }
-////        return numSteps;
-////    }
-////        float distance = (float) (numSteps * 78) / (float) 100000;
-////        return distance;
-////
-//        return numSteps;
-//    }
+    public boolean isChallengeCompleted(){
+        switch (dailyChallenge.getTrackVal()){
+            case "Steps":
+                if(numSteps >= dailyChallenge.getChallengeGoalNum())
+                    return true;
+                break;
+            case "Distance":
+                if(distanceRun >= dailyChallenge.getChallengeGoalNum())
+                    return true;
+                break;
+        }
+        return false;
+    }
 }

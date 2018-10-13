@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lim.fiture.fiture.R;
+import com.lim.fiture.fiture.fragments.LeaderboardFragment;
 import com.lim.fiture.fiture.fragments.UserDailyChallenges2Fragment;
 import com.lim.fiture.fiture.fragments.UserDailyChallengesFragment;
 import com.lim.fiture.fiture.fragments.UserExercisesFragment;
@@ -31,6 +32,7 @@ import com.lim.fiture.fiture.fragments.UserProfileFragment;
 import com.lim.fiture.fiture.fragments.UserProgramsFragment;
 import com.lim.fiture.fiture.models.User;
 import com.lim.fiture.fiture.util.BottomNavigationViewHelper;
+import com.lim.fiture.fiture.util.GlobalUser;
 
 
 /**
@@ -69,6 +71,7 @@ public class UserMainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     mUser = dataSnapshot.getValue(User.class);
+                    GlobalUser.setmUser(mUser);
                     UserProfileFragment profileFragment = UserProfileFragment.newInstance(mUser);
                     loadFragment(profileFragment);
                     Log.d("userCheck1", mUser.toString());
@@ -137,8 +140,17 @@ public class UserMainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_fitness:
-                Toast.makeText(this, "Implement this soon", Toast.LENGTH_SHORT).show();
+            case R.id.action_history:
+                Toast.makeText(this, "History", Toast.LENGTH_SHORT).show();
+            case R.id.action_leaderboard:
+                toolBar.setTitle("Leaderboard");
+                LeaderboardFragment leaderboardFragment = LeaderboardFragment.newInstance(mUser);
+                loadFragment(leaderboardFragment);
+                return true;
+            case R.id.action_edit:
+                startActivity(new Intent(UserMainActivity.this, EditProfileActivity.class)
+                        .putExtra("user",GlobalUser.getmUser())
+                        .putExtra("action","edit"));
                 return true;
             case R.id.action_logout:
                 LoginManager.getInstance().logOut();

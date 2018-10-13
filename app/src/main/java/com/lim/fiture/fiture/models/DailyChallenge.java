@@ -13,26 +13,24 @@ public class DailyChallenge implements Serializable {
     private String challengeDesc;
     private ArrayList<String> challengeImages;
     private int challengeGoalNum;
-    private int challengeDuration;
+    private int challengePoints;
     private String challengeLevel;
     private String challengeFitnessGoal; //lose,gain,maintain
-    private boolean usePedometer;
     private String trackVal; // N/A, steps, distance
     private boolean challengeCompleted;
 
     public DailyChallenge() {
     }
 
-    public DailyChallenge(String challengeId, String challengeName, String challengeDesc, ArrayList<String> challengeImages, int challengeGoalNum, int challengeDuration, String challengeLevel, String challengeFitnessGoal, boolean usePedometer, String trackVal, boolean challengeCompleted) {
+    public DailyChallenge(String challengeId, String challengeName, String challengeDesc, ArrayList<String> challengeImages, int challengeGoalNum, int challengePoints, String challengeLevel, String challengeFitnessGoal, boolean usePedometer, String trackVal, boolean challengeCompleted) {
         this.challengeId = challengeId;
         this.challengeName = challengeName;
         this.challengeDesc = challengeDesc;
         this.challengeImages = challengeImages;
         this.challengeGoalNum = challengeGoalNum;
-        this.challengeDuration = challengeDuration;
+        this.challengePoints = challengePoints;
         this.challengeLevel = challengeLevel;
         this.challengeFitnessGoal = challengeFitnessGoal;
-        this.usePedometer = usePedometer;
         this.trackVal = trackVal;
         this.challengeCompleted = challengeCompleted;
     }
@@ -77,12 +75,12 @@ public class DailyChallenge implements Serializable {
         this.challengeGoalNum = challengeGoalNum;
     }
 
-    public int getChallengeDuration() {
-        return challengeDuration;
+    public int getChallengePoints() {
+        return challengePoints;
     }
 
-    public void setChallengeDuration(int challengeDuration) {
-        this.challengeDuration = challengeDuration;
+    public void setChallengePoints(int challengePoints) {
+        this.challengePoints = challengePoints;
     }
 
     public String getChallengeLevel() {
@@ -93,28 +91,12 @@ public class DailyChallenge implements Serializable {
         this.challengeLevel = challengeLevel;
     }
 
-    public boolean isChallengeCompleted() {
-        return challengeCompleted;
-    }
-
-    public void setChallengeCompleted(boolean challengeCompleted) {
-        this.challengeCompleted = challengeCompleted;
-    }
-
     public String getChallengeFitnessGoal() {
         return challengeFitnessGoal;
     }
 
     public void setChallengeFitnessGoal(String challengeFitnessGoal) {
         this.challengeFitnessGoal = challengeFitnessGoal;
-    }
-
-    public boolean isUsePedometer() {
-        return usePedometer;
-    }
-
-    public void setUsePedometer(boolean usePedometer) {
-        this.usePedometer = usePedometer;
     }
 
     public String getTrackVal() {

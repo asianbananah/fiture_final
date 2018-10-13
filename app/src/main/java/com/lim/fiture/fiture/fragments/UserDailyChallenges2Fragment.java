@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.adapters.UserDailyChallengeAdapter;
 import com.lim.fiture.fiture.adapters.UserProgramsAdapter;
@@ -23,6 +25,7 @@ import com.lim.fiture.fiture.models.DailyChallenge;
 import com.lim.fiture.fiture.models.Program;
 import com.lim.fiture.fiture.models.User;
 import com.lim.fiture.fiture.util.CarouselEffectTransformer;
+import com.lim.fiture.fiture.util.GlobalUser;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,7 @@ public class UserDailyChallenges2Fragment extends Fragment {
     public static final int ADAPTER_TYPE_BOTTOM = 2;
     public static final String EXTRA_IMAGE = "image";
     public static final String EXTRA_TRANSITION_IMAGE = "image";
+    private DatabaseReference userCompletedChallengeRef;
 
 //    private int[] listItems = {R.mipmap.img1, R.mipmap.img2, R.mipmap.img3, R.mipmap.img4,
 //            R.mipmap.img5, R.mipmap.img6, R.mipmap.img7, R.mipmap.img8, R.mipmap.img9, R.mipmap.img10};
@@ -82,10 +86,26 @@ public class UserDailyChallenges2Fragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 DailyChallenge dailyChallenge = dataSnapshot.getValue(DailyChallenge.class);
-                if(dailyChallenge.getChallengeLevel().equals(mUser.getFitnessLevel())){
-                    dailyChallenges.add(dailyChallenge);
-                    setupViewPager();
-                }
+                userCompletedChallengeRef = FirebaseDatabase.getInstance().getReference().child("UserCompletedChallenges").child(GlobalUser.getmUser().getiD());
+                Log.d("moymoy_kab", userCompletedChallengeRef.toString());
+                userCompletedChallengeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.hasChild(dailyChallenge.getChallengeId())){
+                            Log.d("moymoy_kab", "discard");
+                        }else {
+                            if(dailyChallenge.getChallengeLevel().equals(mUser.getFitnessLevel())){
+                                dailyChallenges.add(dailyChallenge);
+                                setupViewPager();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override

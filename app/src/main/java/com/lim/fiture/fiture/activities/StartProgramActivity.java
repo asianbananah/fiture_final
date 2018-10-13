@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,6 +48,9 @@ public class StartProgramActivity extends AppCompatActivity implements CardStack
     private ArrayList<ProgramExercise> dayOfWeekExercises = new ArrayList<>();
     private String TAG = "StartProgramActivity";
 
+    private int totalWeeks;
+    private int currentWeek = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +58,51 @@ public class StartProgramActivity extends AppCompatActivity implements CardStack
         programExerciseReference = FirebaseDatabase.getInstance().getReference("ProgramExercise");
 
         getDataFromPreviousActivity();
-        getProgramDetails();
+        getProgramDetails(currentWeek);
         findViews();
     }
 
     public void getDataFromPreviousActivity(){
-        if(getIntent().getSerializableExtra("program") != null)
+        if(getIntent().getSerializableExtra("program") != null) {
             program = (Program) getIntent().getSerializableExtra("program");
+            totalWeeks = Integer.parseInt(program.getProgramWeeks());
+        }
+    }
+
+    private void setUpWeekNavigation(){
+        if(currentWeek == 1){
+            backBtn.setVisibility(View.GONE);
+        }else{
+            backBtn.setVisibility(View.VISIBLE);
+        }
+
+        if(totalWeeks > 1){
+            nextBtn.setVisibility(View.VISIBLE);
+        }
+
+        if(currentWeek == totalWeeks){
+            nextBtn.setVisibility(View.GONE);
+        }
+    }
+
+    private void determineWeek(int command){
+        // if 0 is passed, meaning back is pressed
+        // if 1 is passed, meaning next is pressed
+
+        switch (command){
+            case 0:
+                currentWeek--;
+                weekTitle.setText("Week " + currentWeek);
+                setUpWeekNavigation();
+                getProgramDetails(currentWeek);
+                break;
+            case 1:
+                currentWeek++;
+                weekTitle.setText("Week " + currentWeek);
+                setUpWeekNavigation();
+                getProgramDetails(currentWeek);
+                break;
+        }
     }
 
     private void findViews(){
@@ -69,7 +111,22 @@ public class StartProgramActivity extends AppCompatActivity implements CardStack
         weekTitle = findViewById(R.id.weekTitle);
         weekStateTxt = findViewById(R.id.weekStateTxt);
         nextBtn = findViewById(R.id.nextBtn);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(StartProgramActivity.this, "next", Toast.LENGTH_SHORT).show();
+                determineWeek(1);
+            }
+        });
         backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(StartProgramActivity.this, "back", Toast.LENGTH_SHORT).show();
+                determineWeek(0);
+            }
+        });
+        setUpWeekNavigation();
         cardStackView = findViewById(R.id.cardStackView);
         cardStackView.setItemExpendListener(this);
         mTestStackAdapter = new TestStackAdapter(this);
@@ -91,12 +148,15 @@ public class StartProgramActivity extends AppCompatActivity implements CardStack
 //        mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);
     }
 
-    public void getProgramDetails(){
+    public void getProgramDetails(int week){
+        programExercises = new ArrayList<>();
         programExerciseReference.child(program.getProgramsId()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ProgramExercise programExercise = dataSnapshot.getValue(ProgramExercise.class);
-                programExercises.add(programExercise);
+                if(programExercise.getWeek() == (week-1)) {
+                    programExercises.add(programExercise);
+                }
             }
 
             @Override

@@ -303,8 +303,22 @@
                         android:background="@color/btnRequest"
                         android:padding="10dp"
                         android:text="View Program"
+                        android:textStyle="bold"
                         android:textAlignment="center"
-                        android:textColor="@color/mainTextColor"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/doneBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/Monday"
+                        android:padding="10dp"
+                        android:text="Mark As Done"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
                         android:textSize="20sp" />
 
                     <TextView
@@ -358,9 +372,9 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/title_time_label"
                         android:layout_marginBottom="5dp"
-                        android:text="14"
+                        android:text="Multiple"
                         android:textColor="@android:color/white"
-                        android:textSize="26sp" />
+                        android:textSize="14sp" />
 
 
                 </RelativeLayout>

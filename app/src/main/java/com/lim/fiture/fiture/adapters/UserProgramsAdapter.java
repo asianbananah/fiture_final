@@ -14,11 +14,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.activities.ProgramDetailsActivity;
 import com.lim.fiture.fiture.models.Program;
+import com.lim.fiture.fiture.util.GlobalUser;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -84,7 +87,7 @@ public class UserProgramsAdapter extends RecyclerView.Adapter<UserProgramsAdapte
 
         TextView titleProgramName, titleProgramDescription, titleProgramWeeks, titleProgramType, titleProgramDifficulty, titleNumExercises;
         ImageView programImage;
-        TextView programName, programDescription, exercisesTxt, weeksTxt, typeTxt, difficultyTxt, viewProgramBtn;
+        TextView programName, programDescription, exercisesTxt, weeksTxt, typeTxt, difficultyTxt, viewProgramBtn, doneBtn;
         FoldingCell foldingCell;
         Button startProgram;
 
@@ -114,11 +117,21 @@ public class UserProgramsAdapter extends RecyclerView.Adapter<UserProgramsAdapte
                             .putExtra("program", programs.get(getAdapterPosition())));
                     //   startProgram.setVisibility(View.VISIBLE);
                     Toast.makeText(context, "Program details", Toast.LENGTH_SHORT).show();
-
-
                 }
-
-
+            });
+            doneBtn = itemView.findViewById(R.id.doneBtn);
+            doneBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("UserCompletedPrograms")
+                            .child(GlobalUser.getmUser().getiD())
+                            .child(programs.get(getAdapterPosition()).getProgramsId())
+                            .setValue(programs.get(getAdapterPosition()));
+                    programs.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+                    notifyItemRangeChanged(getAdapterPosition(), programs.size());
+                }
             });
 
             foldingCell = itemView.findViewById(R.id.folding_cell);

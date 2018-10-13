@@ -56,7 +56,7 @@ public class UserRecommendedDailyExerciseAdapter extends RecyclerView.Adapter<Us
         });
 
         holder.challengeName.setText(dailyChallenges.get(position).getChallengeName());
-        holder.challengeDuration.setText(dailyChallenges.get(position).getChallengeDuration());
+//        holder.challengeDuration.setText(dailyChallenges.get(position).getChallengeDuration());
 
 
     }

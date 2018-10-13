@@ -63,11 +63,16 @@ dependencies {
     //fonts
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.github.shelake-chetan:CustomToast:1.0.2'
+    implementation 'nl.dionsegijn:konfetti:1.1.2'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.41'
 
 
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+
+
 
 
 

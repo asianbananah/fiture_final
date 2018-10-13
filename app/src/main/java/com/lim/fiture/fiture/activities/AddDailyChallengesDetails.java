@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +28,7 @@ import com.lim.fiture.fiture.models.DailyChallenge;
 
 public class AddDailyChallengesDetails extends AppCompatActivity {
 
-    private EditText challengeName, challengeDesc, challengeGoalNum, durationTxt;
+    private EditText challengeName, challengeDesc, challengeGoalNum, pointsTxt;
     private Spinner spinner, track, fitnessGoal;
     private Button nextBtn;
 
@@ -44,8 +45,6 @@ public class AddDailyChallengesDetails extends AppCompatActivity {
 
         findViews();
         getDataFromPreviousActivity();
-
-
     }
 
     private void getDataFromPreviousActivity() {
@@ -64,7 +63,7 @@ public class AddDailyChallengesDetails extends AppCompatActivity {
         challengeName.setText(dailyChallenge.getChallengeName());
         challengeDesc.setText(dailyChallenge.getChallengeDesc());
         challengeGoalNum.setText(dailyChallenge.getChallengeGoalNum()+ "");
-        durationTxt.setText(dailyChallenge.getChallengeDuration() + "");
+        pointsTxt.setText(dailyChallenge.getChallengePoints() + "");
         setSpinnerValues(R.array.Difficulty, spinner, dailyChallenge.getChallengeLevel());
         setSpinnerValues(R.array.challengeTrackValue, track, dailyChallenge.getTrackVal());
         setSpinnerValues(R.array.type, fitnessGoal, dailyChallenge.getChallengeFitnessGoal());
@@ -124,9 +123,30 @@ public class AddDailyChallengesDetails extends AppCompatActivity {
         challengeName = findViewById(R.id.challengeName);
         challengeDesc = findViewById(R.id.challengeDesc);
         challengeGoalNum = findViewById(R.id.challengeGoalNum);
-        durationTxt = findViewById(R.id.durationTxt);
+        pointsTxt = findViewById(R.id.pointsTxt);
         spinner = findViewById(R.id.difficulty);
         track = findViewById(R.id.track);
+        track.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (adapterView.getSelectedItemPosition()){
+                    case 0:
+                        challengeGoalNum.setHint("minute/s");
+                        break;
+                    case 1:
+                        challengeGoalNum.setHint("step/s");
+                        break;
+                    case 2:
+                        challengeGoalNum.setHint("kilometer/s");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         fitnessGoal = findViewById(R.id.fitnessGoal);
         nextBtn = findViewById(R.id.nextBtn);
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -138,13 +158,9 @@ public class AddDailyChallengesDetails extends AppCompatActivity {
                 dailyChallenge.setChallengeName(challengeName.getText().toString());
                 dailyChallenge.setChallengeDesc(challengeDesc.getText().toString());
                 dailyChallenge.setChallengeGoalNum(Integer.parseInt(challengeGoalNum.getText().toString()));
-                dailyChallenge.setChallengeDuration(Integer.parseInt(durationTxt.getText().toString()));
+                dailyChallenge.setChallengePoints(Integer.parseInt(pointsTxt.getText().toString()));
                 dailyChallenge.setChallengeLevel(spinner.getSelectedItem().toString());
                 dailyChallenge.setTrackVal(track.getSelectedItem().toString());
-                if(!dailyChallenge.getTrackVal().equals("Time"))
-                    dailyChallenge.setUsePedometer(true);
-                else
-                    dailyChallenge.setUsePedometer(false);
                 dailyChallenge.setChallengeFitnessGoal(fitnessGoal.getSelectedItem().toString());
 
                 startActivity(new Intent(AddDailyChallengesDetails.this, AddDailyChallengesImages.class)

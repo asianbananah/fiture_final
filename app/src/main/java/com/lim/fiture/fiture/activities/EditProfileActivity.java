@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ public class EditProfileActivity extends AppCompatActivity implements DatePicker
     private Spinner userGender;
 
     DatabaseReference databaseUser;
+    private String action = "";
 
 
 
@@ -53,8 +55,15 @@ public class EditProfileActivity extends AppCompatActivity implements DatePicker
         mUser = (User) getIntent().getSerializableExtra("user");
         Log.d("testUser" ,mUser.toString());
 
+        if(getIntent().getStringExtra("action") != null)
+            action = getIntent().getStringExtra("action");
+
         findViews();
         initializeViews();
+
+        if(action.equals("edit")){
+            resumeValues();
+        }
     }
 
     private void findViews(){
@@ -93,8 +102,9 @@ public class EditProfileActivity extends AppCompatActivity implements DatePicker
             mUser.setWeightInKg(Integer.parseInt(weightTxt.getText().toString()));
             mUser.setGender(userGender.getSelectedItem().toString());
             mUser.setBmi(calculateBMI((float)mUser.getWeightInKg(),(float)mUser.getHeightInCm()/100));
+            if(!action.equals("edit"))
+                mUser.setPoints(0); //this means that if this is a new user, set the default points to 0
 
-//                String id =  databaseUser.push().getKey();
             databaseUser.child(mUser.getiD()).setValue(mUser);
             startActivity(new Intent(EditProfileActivity.this,FitnessLevelActivity.class).putExtra("user",mUser));
         });
@@ -106,6 +116,26 @@ public class EditProfileActivity extends AppCompatActivity implements DatePicker
         userlastName.setText(mUser.getLastName());
         userEmail.setText(mUser.getEmail());
         userName.setText(mUser.getFirstName() + " " + mUser.getLastName());
+    }
+
+    private void resumeValues(){
+        userfirstName.setText(mUser.getFirstName());
+        userlastName.setText(mUser.getLastName());
+        userEmail.setText(mUser.getEmail());
+        userBirthDate.setText(mUser.getDateOfBirth());
+        setSpinnerValues(R.array.gender_choices, userGender, mUser.getGender());
+        heightTxt.setText(String.valueOf(mUser.getHeightInCm()));
+        weightTxt.setText(String.valueOf(mUser.getWeightInKg()));
+    }
+
+    private void setSpinnerValues(int resource, Spinner spinner, String compareValue) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, resource, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        if (compareValue != null) {
+            int spinnerPosition = adapter.getPosition(compareValue);
+            spinner.setSelection(spinnerPosition);
+        }
     }
 
     @Override

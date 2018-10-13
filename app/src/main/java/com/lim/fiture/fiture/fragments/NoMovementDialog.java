@@ -2,7 +2,6 @@ package com.lim.fiture.fiture.fragments;
 
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -13,13 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lim.fiture.fiture.R;
-import com.lim.fiture.fiture.activities.DoProgramActivity;
 import com.lim.fiture.fiture.models.DailyChallenge;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChallengeDetailsDialog extends DialogFragment {
+public class NoMovementDialog extends DialogFragment {
 
     private TextView challengeTitle, challengeDesc;
     private Button closeBtn;
@@ -27,13 +25,13 @@ public class ChallengeDetailsDialog extends DialogFragment {
 
     private View rootView;
 
-    public ChallengeDetailsDialog() {
+    public NoMovementDialog() {
     }
 
-    public static ChallengeDetailsDialog newInstance(DailyChallenge dailyChallenge) {
+    public static NoMovementDialog newInstance(DailyChallenge dailyChallenge) {
         Bundle args = new Bundle();
-        args.putSerializable("dailyChallenge",dailyChallenge);
-        ChallengeDetailsDialog fragment = new ChallengeDetailsDialog();
+        args.putSerializable("dailyChallenge", dailyChallenge);
+        NoMovementDialog fragment = new NoMovementDialog();
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,7 +39,7 @@ public class ChallengeDetailsDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_challenge_details, container);
+        rootView = inflater.inflate(R.layout.fragment_no_movement_dialog, container);
         return rootView;
     }
 
@@ -57,10 +55,9 @@ public class ChallengeDetailsDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
+                getActivity().finish();
             }
         });
-
-        challengeTitle.setText(dailyChallenge.getChallengeName().toUpperCase());
-        challengeDesc.setText(dailyChallenge.getChallengeDesc());
     }
 }
+

@@ -1,12 +1,14 @@
 package com.lim.fiture.fiture.models;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
  * Created by User on 24/07/2018.
  */
 
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User> {
     private String iD;
     private String firstName;
     private String lastName;
@@ -19,11 +21,12 @@ public class User implements Serializable {
     private String fitnessLevel;
     private String fitnessGoal;
     private String photoUrl;
+    private int points;
 
     public User() {
     }
 
-    public User(String iD, String firstName, String lastName, String email, String dateOfBirth, String gender, float bmi, int weightInKg, int heightInCm, String fitnessLevel, String fitnessGoal, String photoUrl) {
+    public User(String iD, String firstName, String lastName, String email, String dateOfBirth, String gender, float bmi, int weightInKg, int heightInCm, String fitnessLevel, String fitnessGoal, String photoUrl, int points) {
         this.iD = iD;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,6 +39,7 @@ public class User implements Serializable {
         this.fitnessLevel = fitnessLevel;
         this.fitnessGoal = fitnessGoal;
         this.photoUrl = photoUrl;
+        this.points = points;
     }
 
     public String getiD() {
@@ -134,6 +138,14 @@ public class User implements Serializable {
         this.photoUrl = photoUrl;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public String toString() {
         return
                 "id: " + this.getiD() + "\n" +
@@ -147,7 +159,19 @@ public class User implements Serializable {
                         "height: " + this.getHeightInCm() + "\n" +
                         "fitnessLevel: " + this.getFitnessLevel() + "\n" +
                         "fitnessGoal: " + this.getFitnessGoal() + "\n" +
-                        "photoUrl: " + this.getPhotoUrl() + "\n";
+                        "photoUrl: " + this.getPhotoUrl() + "\n" +
+                        "points: " + this.getPoints() + "\n";
 
+    }
+
+    @Override
+    public int compareTo(@NonNull User user) {
+        int comparePoints = user.getPoints();
+
+        //ascending order
+//        return this.points - comparePoints;
+
+        //descending order
+        return comparePoints - this.points;
     }
 }

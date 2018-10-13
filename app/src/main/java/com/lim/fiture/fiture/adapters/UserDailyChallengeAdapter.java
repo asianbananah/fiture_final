@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lim.fiture.fiture.R;
+import com.lim.fiture.fiture.activities.ActivityExecuteChallengeTrackTime;
 import com.lim.fiture.fiture.activities.ExecuteChallengeActivity;
 import com.lim.fiture.fiture.fragments.UserDailyChallenges2Fragment;
 import com.lim.fiture.fiture.fragments.UserDailyChallengesFragment;
@@ -75,8 +76,13 @@ public class UserDailyChallengeAdapter extends PagerAdapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    context.startActivity(new Intent(context, ExecuteChallengeActivity.class)
-                        .putExtra("dailyChallenge",dailyChallenges.get(position)));
+                    if(dailyChallenges.get(position).getTrackVal().equals("Time")){
+                        context.startActivity(new Intent(context, ActivityExecuteChallengeTrackTime.class)
+                                .putExtra("dailyChallenge", dailyChallenges.get(position)));
+                    }else {
+                        context.startActivity(new Intent(context, ExecuteChallengeActivity.class)
+                                .putExtra("dailyChallenge", dailyChallenges.get(position)));
+                    }
                 }
             });
             container.addView(view);

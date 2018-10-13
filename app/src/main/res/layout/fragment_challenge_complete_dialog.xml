@@ -21,13 +21,13 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_gymnast"
+                android:src="@drawable/ic_celebration"
                 android:layout_gravity="center_horizontal"/>
 
             <TextView
                 android:id="@+id/challengeTitle"
                 android:layout_marginTop="20dp"
-                android:text="GOOD JOB!!"
+                android:text="CONGRATULATIONS!"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:gravity="center"
@@ -40,7 +40,9 @@
             <TextView
                 android:id="@+id/challengeDesc"
                 android:layout_marginTop="20dp"
-                android:text="That was great work. Take a rest for a while."
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Hooray! You've earned {0} points for this challenge. Now, on to the next one."
                 android:gravity="center"
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
@@ -57,7 +59,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/color_20"
-                android:text="GOT IT"
+                android:text="FINISH"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 />

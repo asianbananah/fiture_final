@@ -34,20 +34,25 @@ public class ProgramExercisesAdapter extends RecyclerView.Adapter<ProgramExercis
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.program_exercise_layout_item_two, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.program_exercise_layout_item_two, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        StorageReference imageReference = FirebaseStorage.getInstance().getReferenceFromUrl(exercises.get(position).getExerciseImages().get(0));
-        imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(context).load(uri).into(holder.exerciseImage);
-            }
-        });
+        try {
+            StorageReference imageReference = FirebaseStorage.getInstance().getReferenceFromUrl(exercises.get(position).getExerciseImages().get(0));
+            imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(context).load(uri).into(holder.exerciseImage);
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         holder.exerciseName.setText(exercises.get(position).getExerciseName());
     }

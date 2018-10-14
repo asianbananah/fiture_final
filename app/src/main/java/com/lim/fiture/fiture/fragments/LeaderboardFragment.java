@@ -88,6 +88,7 @@ public class LeaderboardFragment extends Fragment {
         getAllUsers();
     }
 
+
     private void findViews(){
         userRank = rootView.findViewById(R.id.userRank);
         userPic = rootView.findViewById(R.id.userPic);

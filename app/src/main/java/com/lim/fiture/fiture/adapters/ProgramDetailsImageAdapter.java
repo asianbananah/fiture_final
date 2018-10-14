@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -50,7 +51,12 @@ public class ProgramDetailsImageAdapter extends PagerAdapter {
         imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(context).load(uri).into(mImageView);
+                try {
+                    GlideDrawableImageViewTarget glideDrawableImageViewTarget = new GlideDrawableImageViewTarget(mImageView);
+                    Glide.with(context).load(uri).into(glideDrawableImageViewTarget);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         ((ViewPager) container).addView(mImageView, 0);

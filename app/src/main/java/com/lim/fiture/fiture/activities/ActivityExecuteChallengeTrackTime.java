@@ -135,6 +135,12 @@ public class ActivityExecuteChallengeTrackTime extends AppCompatActivity impleme
     protected void onDestroy() {
         super.onDestroy();
         sensorMan.unregisterListener(this);
+        try{
+            countDownTimer.cancel();
+            motionSensor = null;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

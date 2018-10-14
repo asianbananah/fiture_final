@@ -84,6 +84,7 @@ public class UserProgramsFragment extends Fragment {
     }
 
     private void getUserPrograms(){
+        userPrograms = new ArrayList<>();
         userProgramsReference = FirebaseDatabase.getInstance().getReference().child("UserPrograms").child(mUser.getiD());
         userProgramsReference.addChildEventListener(new ChildEventListener() {
             @Override

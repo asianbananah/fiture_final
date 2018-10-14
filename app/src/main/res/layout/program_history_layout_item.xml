@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="10dp">
+    <LinearLayout
+        android:id="@+id/lin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+
+        <RelativeLayout
+            android:id="@+id/relly"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/outline"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:src="#D1D1D1" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/historyPic"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_stationary_bike"/>
+            <!--<android.support.v4.widget.CircleImageView-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="60dp" -->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:src="#D1D1D1"/>-->
+            <!--<android.support.v4.widget.CircleImageView-->
+            <!--android:layout_width="53dp"-->
+            <!--android:layout_height="53dp" -->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:src=""/>-->
+
+            <RelativeLayout
+                android:id="@+id/medalIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:visibility="gone">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:color/white"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/completedName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#2980b9"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                tools:text="Run 10K"/>
+
+            <TextView
+                android:id="@+id/completedDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#bdc3c7"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="Do 15 jumping jacks in 3 minutes!" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/lin"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:alpha="0.5"
+        android:background="#bdc3c7" />
+</RelativeLayout>

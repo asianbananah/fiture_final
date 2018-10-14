@@ -50,13 +50,17 @@ public class ProgramActivityAdapter extends RecyclerView.Adapter<ProgramActivity
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        StorageReference imageReference = FirebaseStorage.getInstance().getReferenceFromUrl(program.get(position).getProgramImages().get(0));
-        imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(context).load(uri).into(holder.programImage);
-            }
-        });
+        try {
+            StorageReference imageReference = FirebaseStorage.getInstance().getReferenceFromUrl(program.get(position).getProgramImages().get(0));
+            imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(context).load(uri).into(holder.programImage);
+                }
+            });
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
         holder.programName.setText(program.get(position).getProgramsName());
         holder.programType.setText(program.get(position).getProgramType());

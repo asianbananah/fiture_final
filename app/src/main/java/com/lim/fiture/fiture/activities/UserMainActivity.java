@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,8 +29,10 @@ import com.lim.fiture.fiture.fragments.LeaderboardFragment;
 import com.lim.fiture.fiture.fragments.UserDailyChallenges2Fragment;
 import com.lim.fiture.fiture.fragments.UserDailyChallengesFragment;
 import com.lim.fiture.fiture.fragments.UserExercisesFragment;
+import com.lim.fiture.fiture.fragments.UserHistory;
 import com.lim.fiture.fiture.fragments.UserProfileFragment;
 import com.lim.fiture.fiture.fragments.UserProgramsFragment;
+import com.lim.fiture.fiture.models.DailyChallenge;
 import com.lim.fiture.fiture.models.User;
 import com.lim.fiture.fiture.util.BottomNavigationViewHelper;
 import com.lim.fiture.fiture.util.GlobalUser;
@@ -141,7 +144,11 @@ public class UserMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_history:
-                Toast.makeText(this, "History", Toast.LENGTH_SHORT).show();
+                toolBar.setTitle("History");
+                UserHistory userHistory = new UserHistory();
+                loadFragment(userHistory);
+                return true;
+              //  Toast.makeText(this, "History", Toast.LENGTH_SHORT).show();
             case R.id.action_leaderboard:
                 toolBar.setTitle("Leaderboard");
                 LeaderboardFragment leaderboardFragment = LeaderboardFragment.newInstance(mUser);

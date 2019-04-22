@@ -46,7 +46,11 @@ public class ProgramExercisesAdapter extends RecyclerView.Adapter<ProgramExercis
             imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(context).load(uri).into(holder.exerciseImage);
+                    try {
+                        Glide.with(context).load(uri).into(holder.exerciseImage);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
                 }
             });

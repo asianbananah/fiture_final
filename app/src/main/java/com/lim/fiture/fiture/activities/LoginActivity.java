@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                     mPhotoUrl = object.getJSONObject("picture").getJSONObject("data").getString("url");
                     mId = object.getString("id");
                     mName = object.getString("name");
+
                     mUser = new User();
                     mUser.setiD(mId.toString());
                     mUser.setFirstName(mName.replace(mName.substring(mName.lastIndexOf(" ")), ""));

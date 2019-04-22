@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +25,20 @@ import com.google.firebase.database.ValueEventListener;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.adapters.InstructionsAdapter;
 import com.lim.fiture.fiture.adapters.ProgramDetailsImageAdapter;
+import com.lim.fiture.fiture.fragments.InputWeightDialog;
+import com.lim.fiture.fiture.fragments.NoMovementDialog;
 import com.lim.fiture.fiture.fragments.RestDialog;
 import com.lim.fiture.fiture.models.Exercise;
+import com.lim.fiture.fiture.models.Program;
 import com.lim.fiture.fiture.models.ProgramExercise;
+import com.lim.fiture.fiture.models.ProgramTracker;
+import com.lim.fiture.fiture.util.GlobalUser;
 
 import java.util.ArrayList;
+
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 public class DoProgramActivity extends AppCompatActivity {
 
@@ -49,6 +59,14 @@ public class DoProgramActivity extends AppCompatActivity {
     private long startTime = 0;
     private String TAG = "DoProgramActivity";
 
+    //new additions
+    private int currentWeek;
+    private int count;
+    private ArrayList<ProgramTracker> programTrackers;
+    private int programTrackersCount = 0;
+    boolean falseDetected = false;
+    private KonfettiView viewKonfetti;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +76,7 @@ public class DoProgramActivity extends AppCompatActivity {
         getDataFromPreviousActivity();
         findViews();
         getExerciseDetails();
+        getAllProgramTrackersForCurrentWeekCount();
     }
 
     public void getDataFromPreviousActivity(){
@@ -128,7 +147,8 @@ public class DoProgramActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToNextExercise();
+                finishProgramExercise();
+                 goToNextExercise();
             }
         });
         instructionsRecycler = findViewById(R.id.instructionsRecycler);
@@ -183,7 +203,15 @@ public class DoProgramActivity extends AppCompatActivity {
         exerciseNum++;
 
         if(exerciseNum == programExercises.size()){
-            finish();
+            nextBtn.setText("FINISH");
+            nextBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkIfProgramComplete();
+                }
+            });
+//            checkIfProgramComplete();
+//            finish();
         }else {
             currentSet = 1;
             startTime = 0;
@@ -192,4 +220,188 @@ public class DoProgramActivity extends AppCompatActivity {
             getExerciseDetails();
         }
     }
+
+    private void finishProgramExercise(){
+        try {
+            DatabaseReference programTrackerRef = FirebaseDatabase.getInstance().getReference("ProgramTracker")
+                    .child(GlobalUser.getmUser().getiD())
+                    .child(programExercises.get(exerciseNum).getProgramId())
+                    .child(programExercises.get(exerciseNum).getProgramExerciseId());
+            programTrackerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ProgramTracker programTracker = dataSnapshot.getValue(ProgramTracker.class);
+                    programTracker.setProgramExerciseFinished(true);
+                    programTrackerRef.setValue(programTracker);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void getAllProgramTrackersForCurrentWeekCount(){
+        programTrackersCount = 0;
+        programTrackers = new ArrayList<>();
+        currentWeek = programExercises.get(0).getWeek();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ProgramTracker")
+                .child(GlobalUser.getmUser().getiD())
+                .child(programExercises.get(0).getProgramId());
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                ProgramTracker programTracker = dataSnapshot.getValue(ProgramTracker.class);
+                if(programTracker.getProgramExerciseWeek() == currentWeek){
+                    programTrackersCount++;
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void checkIfProgramComplete() {
+        currentWeek = programExercises.get(0).getWeek();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ProgramTracker")
+                .child(GlobalUser.getmUser().getiD())
+                .child(programExercises.get(0).getProgramId());
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                ProgramTracker programTracker = dataSnapshot.getValue(ProgramTracker.class);
+                if (programTracker.getProgramExerciseWeek() == currentWeek) {
+                    programTrackers.add(programTracker);
+                    if (programTrackers.size() == programTrackersCount) {
+                        for (int i = 0; i < programTrackers.size(); i++) {
+                            if (!programTrackers.get(i).isProgramExerciseFinished()) {
+                                Log.d("checkingggg", "false detected");
+                                falseDetected = true;
+                            }
+                        }
+
+                        if (falseDetected) {
+                            finish();
+                        } else {
+                            //meaning this week for the current program is done
+                            viewKonfetti = findViewById(R.id.viewKonfetti);
+                            viewKonfetti.build()
+                                    .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                                    .setDirection(0.0, 359.0)
+                                    .setDirection(0.0, 359.0)
+                                    .setSpeed(1f, 5f)
+                                    .setFadeOutEnabled(true)
+                                    .setTimeToLive(2000L)
+                                    .addShapes(Shape.RECT, Shape.CIRCLE)
+                                    .addSizes(new Size(12, 5))
+                                    .setPosition(-50f, viewKonfetti.getWidth() + 50f, -50f, -50f)
+                                    .streamFor(300, 5000L);
+
+                            FragmentManager fm = getFragmentManager();
+                            InputWeightDialog weightDialog = new InputWeightDialog();
+                            weightDialog.show(fm, "fragment_input_weight");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+//    private void checkIfProgramComplete(){
+//        currentWeek = programExercises.get(0).getWeek();
+//        Log.d("checkingggg", "ni sud");
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ProgramTracker")
+//                .child(GlobalUser.getmUser().getiD())
+//                .child(programExercises.get(0).getProgramId());
+//        Log.d("checkingggg", databaseReference.toString());
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                count = 0;
+//                programTrackers = new ArrayList<>();
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                    ProgramTracker programTracker = snapshot.getValue(ProgramTracker.class);
+//                    count++;
+//
+//                    if(programTracker.getProgramExerciseWeek() == currentWeek) {
+//                        Log.d("checkingggg", programTracker.getProgramExerciseId());
+//                        programTrackers.add(programTracker);
+//
+//                        if(count >= programTrackersCount){
+//                            for(int i = 0 ; i< programTrackers.size(); i++){
+//                                if (!programTrackers.get(i).isProgramExerciseFinished()){
+//                                    Log.d("checkingggg", "false detected");
+//                                    falseDetected = true;
+//                                }
+//                            }
+//
+//                            if (falseDetected){
+//                                Toast.makeText(DoProgramActivity.this, "incomplete", Toast.LENGTH_SHORT).show();
+//                                finish();
+//                            }else{
+//                                Toast.makeText(DoProgramActivity.this, "show week finished here, and weight dialog", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+////                        if (!programTracker.isProgramExerciseFinished()) {
+////                            Log.d("checkingggg", "false detected");
+////                            finish();
+////                            break;
+////                        } else {
+////                            //check last iteration
+////                            if (count >= programTrackersCount) {
+////                                Log.d("checkingggg", "finished");
+////                                Toast.makeText(DoProgramActivity.this, "show week finished here, and weight dialog", Toast.LENGTH_SHORT).show();
+////                            }
+////                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 }

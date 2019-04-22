@@ -143,6 +143,7 @@ public class AddWeekExerciseDialog extends DialogFragment {
                     exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     exerciseSpinner.setAdapter(exerciseAdapter);
                     exerciseSpinner.setSelection(0);
+
                 }
                 catch (Exception e){
                     e.printStackTrace();

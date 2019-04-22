@@ -34,8 +34,11 @@ import com.lim.fiture.fiture.fragments.UserProfileFragment;
 import com.lim.fiture.fiture.fragments.UserProgramsFragment;
 import com.lim.fiture.fiture.models.DailyChallenge;
 import com.lim.fiture.fiture.models.User;
+import com.lim.fiture.fiture.models.WeightHistory;
 import com.lim.fiture.fiture.util.BottomNavigationViewHelper;
 import com.lim.fiture.fiture.util.GlobalUser;
+
+import java.util.Calendar;
 
 
 /**

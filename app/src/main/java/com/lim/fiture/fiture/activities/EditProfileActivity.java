@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.fragments.DatePickerFragment;
 import com.lim.fiture.fiture.models.User;
+import com.lim.fiture.fiture.models.WeightHistory;
+import com.lim.fiture.fiture.util.GlobalUser;
 
 import org.w3c.dom.Text;
 
@@ -106,6 +108,14 @@ public class EditProfileActivity extends AppCompatActivity implements DatePicker
                 mUser.setPoints(0); //this means that if this is a new user, set the default points to 0
 
             databaseUser.child(mUser.getiD()).setValue(mUser);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("UserWeightHistory");
+            WeightHistory weightHistory = new WeightHistory(
+                    mUser.getiD(),
+                    mUser.getWeightInKg(),
+                    Calendar.getInstance().getTime()
+            );
+            String uniqueId = databaseReference.child(mUser.getiD()).push().getKey();
+            databaseReference.child(mUser.getiD()).child(uniqueId).setValue(weightHistory);
             startActivity(new Intent(EditProfileActivity.this,FitnessLevelActivity.class).putExtra("user",mUser));
         });
     }

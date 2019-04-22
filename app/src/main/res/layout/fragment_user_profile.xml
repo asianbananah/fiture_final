@@ -541,6 +541,53 @@
                             android:layout_marginBottom="10dp"
                             android:layout_centerHorizontal="true"/>
 
+                        <LinearLayout
+                            android:id="@+id/lin10"
+                            android:layout_below="@+id/fitnessGoalTxt"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/black"
+                                android:text="WEIGHT HISTORY"/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:alpha="0.5"
+                                android:background="@android:color/black" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cardGraph"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_below="@+id/lin10"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:elevation="5dp"
+                            >
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/chart"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </android.support.v7.widget.CardView>
+
+
                     </RelativeLayout>
 
                 </android.support.v7.widget.CardView>

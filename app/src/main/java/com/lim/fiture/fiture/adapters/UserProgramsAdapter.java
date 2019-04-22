@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,17 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.activities.ProgramDetailsActivity;
 import com.lim.fiture.fiture.models.Program;
+import com.lim.fiture.fiture.models.ProgramTracker;
 import com.lim.fiture.fiture.util.GlobalUser;
 import com.ramotion.foldingcell.FoldingCell;
 
@@ -34,6 +39,9 @@ public class UserProgramsAdapter extends RecyclerView.Adapter<UserProgramsAdapte
 
     private Context context;
     private ArrayList<Program> programs;
+
+    private ArrayList<ProgramTracker> programTrackers;
+    private boolean falseDetected = false;
 
     public UserProgramsAdapter(Context context, ArrayList<Program> programs) {
         this.context = context;
@@ -123,14 +131,42 @@ public class UserProgramsAdapter extends RecyclerView.Adapter<UserProgramsAdapte
             doneBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FirebaseDatabase.getInstance().getReference()
-                            .child("UserCompletedPrograms")
+                    programTrackers = new ArrayList<>();
+                    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("ProgramTracker")
                             .child(GlobalUser.getmUser().getiD())
-                            .child(programs.get(getAdapterPosition()).getProgramsId())
-                            .setValue(programs.get(getAdapterPosition()));
-                    programs.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                    notifyItemRangeChanged(getAdapterPosition(), programs.size());
+                            .child(programs.get(getAdapterPosition()).getProgramsId());
+                    databaseRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                ProgramTracker programTracker = snapshot.getValue(ProgramTracker.class);
+                                if (!programTracker.isProgramExerciseFinished())
+                                    falseDetected = true;
+                                programTrackers.add(programTracker);
+
+                                if(programTrackers.size() >= dataSnapshot.getChildrenCount()){
+                                    Log.d("markAsDone", "last iteration");
+                                    if (falseDetected)
+                                        Toast.makeText(context, "You must finish all exercises for this program.", Toast.LENGTH_SHORT).show();
+                                    else {
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("UserCompletedPrograms")
+                                                .child(GlobalUser.getmUser().getiD())
+                                                .child(programs.get(getAdapterPosition()).getProgramsId())
+                                                .setValue(programs.get(getAdapterPosition()));
+                                        programs.remove(getAdapterPosition());
+                                        notifyItemRemoved(getAdapterPosition());
+                                        notifyItemRangeChanged(getAdapterPosition(), programs.size());
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             });
 

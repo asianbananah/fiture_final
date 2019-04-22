@@ -168,7 +168,7 @@ public class AddProgramExercise extends AppCompatActivity {
 
     }
 
-    public void addWeekExercise(int week, ProgramExercise programExercise) {
+        public void addWeekExercise(int week, ProgramExercise programExercise) {
         weekExercises.get(week).add(programExercise);
         weekExerciseAdapters.set(week, new WeekExerciseAdapter(this, weekExercises.get(week)));
         programExercises.get(week).setAdapter(weekExerciseAdapters.get(week));
@@ -181,6 +181,7 @@ public class AddProgramExercise extends AppCompatActivity {
                 ProgramExercise programExercise = weekExercises.get(i).get(i2);
                 programExercise.setProgramId(program.getProgramsId());
                 allProgramExercises.add(programExercise);
+
             }
         }
     }

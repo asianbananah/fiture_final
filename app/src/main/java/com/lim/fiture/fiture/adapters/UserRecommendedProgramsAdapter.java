@@ -20,6 +20,9 @@ import com.bumptech.glide.Glide;
 import com.customtoast.chen.customtoast.CustomToast;
 import com.dd.morphingbutton.MorphingButton;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,6 +32,8 @@ import com.lim.fiture.fiture.activities.ProgramDetailsActivity;
 import com.lim.fiture.fiture.fragments.UserDailyChallengesFragment;
 import com.lim.fiture.fiture.models.Exercise;
 import com.lim.fiture.fiture.models.Program;
+import com.lim.fiture.fiture.models.ProgramExercise;
+import com.lim.fiture.fiture.models.ProgramTracker;
 import com.lim.fiture.fiture.models.User;
 import com.lim.fiture.fiture.util.CustomToastNew;
 
@@ -47,6 +52,9 @@ public class UserRecommendedProgramsAdapter extends RecyclerView.Adapter<UserRec
     private CustomToastNew customToast;
 
     private DatabaseReference databaseUserProgram;
+    private DatabaseReference programExerciseRef;
+    private DatabaseReference userProgramTracker;
+
 
     public UserRecommendedProgramsAdapter(Context context, ArrayList<Program> programs, User mUser) {
         this.context = context;
@@ -102,11 +110,48 @@ public class UserRecommendedProgramsAdapter extends RecyclerView.Adapter<UserRec
             addProgramButton = itemView.findViewById(R.id.addProgramButton);
 
             databaseUserProgram = FirebaseDatabase.getInstance().getReference("UserPrograms");
+            userProgramTracker = FirebaseDatabase.getInstance().getReference("ProgramTracker");
             addProgramButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     databaseUserProgram.child(mUser.getiD()).child(programs.get(getAdapterPosition()).getProgramsId()).setValue(programs.get(getAdapterPosition()));
+                    programExerciseRef = FirebaseDatabase.getInstance().getReference("ProgramExercise")
+                            .child(programs.get(getAdapterPosition()).getProgramsId());
+                    programExerciseRef.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            ProgramExercise programExercise = dataSnapshot.getValue(ProgramExercise.class);
+                            ProgramTracker programTracker = new ProgramTracker(
+                                    programExercise.getProgramExerciseId(),
+                                    programExercise.getWeek(),
+                                    false);
+                            userProgramTracker.child(mUser.getiD())
+                                    .child(programExercise.getProgramId())
+                                    .child(programExercise.getProgramExerciseId())
+                                    .setValue(programTracker);
 
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                     addProgramButton.setText("PROGRAM ADDED!");
 
                     addProgramButton.setBackgroundColor(Color.parseColor("#fbc531"));

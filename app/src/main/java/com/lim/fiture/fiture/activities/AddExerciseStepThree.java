@@ -35,8 +35,6 @@ import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.adapters.AddExerciseImageAdapter;
 import com.lim.fiture.fiture.models.Exercise;
 
-import org.simple.eventbus.EventBus;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;

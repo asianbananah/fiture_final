@@ -15,8 +15,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lim.fiture.fiture.R;
 import com.lim.fiture.fiture.models.User;
+import com.lim.fiture.fiture.models.WeightHistory;
+import com.lim.fiture.fiture.util.GlobalUser;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,10 +46,13 @@ public class UserProfileFragment extends Fragment {
     private ImageView profileCoverPic;
     private CircleImageView profilePic, beginnerImg, intermediateImg, expertImg, loseImg, maintainImg, gainImg;
     private TextView userNameTxt, emailTxt, genderTxt, birthDateTxt, heightTxt, weightTxt, fitnessLevelTxt, fitnessGoalTxt;
+    private LineChart lineChart;
 
     private View rootView;
     private User mUser;
 
+    private int count = 0;
+    private ArrayList<WeightHistory> weightHistories;
     public UserProfileFragment() {
         // Required empty public constructor
     }
@@ -51,7 +72,8 @@ public class UserProfileFragment extends Fragment {
         mUser = (User) getArguments().getSerializable("user");
         Log.d("userCheck22", mUser.getiD());
         findViews();
-        setProfileData();
+        getUpdatedUser();
+        getWeightHistory();
     }
 
     @Override
@@ -122,6 +144,77 @@ public class UserProfileFragment extends Fragment {
         weightTxt = rootView.findViewById(R.id.weightTxt);
         fitnessLevelTxt = rootView.findViewById(R.id.fitnessLevelTxt);
         fitnessGoalTxt = rootView.findViewById(R.id.fitnessGoalTxt);
+        lineChart = rootView.findViewById(R.id.chart);
+
     }
+
+    private void getUpdatedUser(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(GlobalUser.getmUser().getiD());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mUser = dataSnapshot.getValue(User.class);
+                setProfileData();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getWeightHistory(){
+        weightHistories = new ArrayList<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("UserWeightHistory").child(GlobalUser.getmUser().getiD());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    WeightHistory weightHistory = snapshot.getValue(WeightHistory.class);
+                    weightHistories.add(weightHistory);
+                    if (weightHistories.size() >= dataSnapshot.getChildrenCount()){
+                        Log.d("weightHistoryy", "last iteration");
+                        List<Entry> entries = new ArrayList<Entry>();
+                        count = 0;
+                        for(WeightHistory weightHistory1 : weightHistories){
+                            count++;
+                            Entry entry = new Entry(count, weightHistory1.getWeightInKg());
+                            entries.add(entry);
+                        }
+                        LineDataSet dataSet = new LineDataSet(entries, "Weight History"); // add entries to dataset
+                        dataSet.setColor(Color.parseColor("#2980b9"));
+                        dataSet.setValueTextColor(Color.parseColor("#2980b9"));
+                        LineData lineData = new LineData(dataSet);
+                        lineChart.setData(lineData);
+                        lineChart.invalidate(); // refresh
+
+                        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+                            @Override
+                            public String getFormattedValue(float value, AxisBase axis) {
+//                                Log.d("moymoygwaps", "dateSize: " + weightHistories.size());
+                                String formattedDate = DateFormat.getInstance().format(weightHistories.get(0).getDate());
+                                return formattedDate;
+//                                return "";
+                            }
+
+                        };
+
+                        XAxis xAxis = lineChart.getXAxis();
+                        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+                        xAxis.setValueFormatter(formatter);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 
 }
